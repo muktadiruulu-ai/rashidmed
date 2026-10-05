@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Кыргызстан Travel — унутулгус саякатты башта</title>
+  <meta name="description" content="Кыргызстандын кооз жерлерин, мейманканаларын, ресторандарын жана туристтик турларды бир жерден тап.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ==========================================================
+   Кыргызстан Travel — style.css
+   1. Tokens  2. Base  3. Header  4. Hero  5. Sections
+   6. Cards   7. Filters/forms  8. Modal  9. Map/Planner
+   10. Footer 11. Responsive
+   ========================================================== */
+
+/* ---------- 1. TOKENS ---------- */
+:root {
+  --primary: #0B6E4F;
+  --secondary: #2E8B57;
+  --accent: #F4B942;
+  --bg: #F7FAF8;
+  --text: #1F2937;
+  --muted: #5B6676;
+  --line: #E3EAE6;
+  --white: #fff;
+  --lake: #1F6F9C;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow: 0 10px 30px rgba(11, 60, 44, .10);
+  --shadow-lg: 0 22px 50px rgba(11, 60, 44, .20);
+  --grad: linear-gradient(135deg, var(--primary), var(--secondary));
+  --header-h: 72px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* ---------- 2. BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+h1, h2, h3, h4 { line-height: 1.2; margin: 0; letter-spacing: -.02em; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+.container { width: min(1200px, 100% - 40px); margin-inline: auto; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.muted { color: var(--muted); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+body.no-scroll { overflow: hidden; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 0; border-radius: 999px; padding: 13px 26px; font-weight: 600; color: #fff;
+  background: var(--grad); box-shadow: 0 8px 20px rgba(11, 110, 79, .28);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(11, 110, 79, .38); filter: brightness(1.06); }
+.btn:active { transform: translateY(0); }
+.btn--sm { padding: 9px 18px; font-size: .92rem; }
+.btn--block { width: 100%; }
+.btn--ghost { background: transparent; color: var(--primary); box-shadow: inset 0 0 0 1.5px var(--primary); }
+.btn--ghost:hover { background: var(--primary); color: #fff; }
+.btn--accent { background: linear-gradient(135deg, #F4B942, #E9A21B); color: #3a2a00; box-shadow: 0 8px 20px rgba(244, 185, 66, .4); }
+.btn--wa { background: #1faa59; }
+.link-btn { background: none; border: 0; color: var(--primary); font-weight: 600; padding: 4px; text-decoration: underline; text-underline-offset: 3px; }
+.icon-btn {
+  display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 10px; gap: 4px; grid-auto-flow: column;
+  border-radius: 50%; border: 0; background: transparent; color: inherit; transition: background .2s;
+}
+.icon-btn:hover { background: rgba(127, 127, 127, .18); }
+
+/* ---------- 3. HEADER ---------- */
+.header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h);
+  color: #fff; transition: background .3s, box-shadow .3s, color .3s;
+}
+.header.is-scrolled { background: rgba(255, 255, 255, .94); backdrop-filter: blur(12px); color: var(--text); box-shadow: 0 4px 24px rgba(0, 0, 0, .08); }
+.header__inner { height: 100%; width: min(1320px, 100% - 32px); margin-inline: auto; display: flex; align-items: center; gap: 18px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: -.02em; white-space: nowrap; }
+.logo__mark { width: 34px; height: 34px; }
+.nav { display: flex; gap: 4px; margin-inline: auto; }
+.nav a { padding: 8px 12px; border-radius: 999px; font-weight: 500; font-size: .94rem; white-space: nowrap; transition: background .2s, color .2s; }
+.nav a:hover, .nav a.is-active { background: rgba(244, 185, 66, .25); }
+.header.is-scrolled .nav a.is-active { color: var(--primary); }
+.header__tools { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.hsearch { display: flex; align-items: center; border-radius: 999px; transition: background .2s; }
+.hsearch input { width: 0; padding: 0; border: 0; background: transparent; outline: 0; color: inherit; transition: width .3s var(--ease), padding .3s; }
+.hsearch input::placeholder { color: inherit; opacity: .7; }
+.hsearch.is-open { background: rgba(127, 127, 127, .18); }
+.hsearch.is-open input { width: 150px; padding: 0 12px 0 0; }
+.select { border: 1.5px solid var(--line); background: #fff; border-radius: var(--radius-sm); padding: 10px 12px; width: 100%; }
+.select--header { width: auto; padding: 8px 10px; font-size: .88rem; border-radius: 999px; background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .4); color: inherit; }
+.select--header option { color: var(--text); }
+.header.is-scrolled .select--header { background: #fff; border-color: var(--line); }
+.lang { display: flex; background: rgba(127, 127, 127, .16); border-radius: 999px; padding: 3px; }
+.lang button { border: 0; background: transparent; border-radius: 999px; padding: 5px 9px; font-size: .78rem; font-weight: 700; }
+.lang button.is-active { background: var(--accent); color: #3a2a00; }
+.fav-btn { font-size: 1.1rem; color: inherit; }
+.fav-btn span { font-size: .78rem; font-weight: 700; background: var(--accent); color: #3a2a00; border-radius: 999px; padding: 0 7px; }
+.burger { display: none; width: 42px; height: 42px; border: 0; background: transparent; border-radius: 50%; position: relative; }
+.burger span { position: absolute; left: 10px; right: 10px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .3s, opacity .2s; }
+.burger span:nth-child(1) { top: 14px; } .burger span:nth-child(2) { top: 20px; } .burger span:nth-child(3) { top: 26px; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- 4. HERO ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; color: #fff; overflow: hidden; padding: calc(var(--header-h) + 40px) 0 110px; }
+.hero__art { position: absolute; inset: 0; background-size: cover; background-position: center bottom; transform: scale(1.04); animation: heroIn 1.6s var(--ease) both; }
+@keyframes heroIn { from { transform: scale(1.14); opacity: .4; } to { transform: scale(1.04); opacity: 1; } }
+.hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 40, 30, .72) 0%, rgba(5, 40, 30, .35) 55%, rgba(5, 40, 30, .1) 100%), linear-gradient(0deg, rgba(5, 40, 30, .5), transparent 40%); }
+.hero__content { position: relative; max-width: 1200px; }
+.hero h1 { font-size: clamp(2.3rem, 6vw, 4.6rem); font-weight: 800; max-width: 14ch; text-wrap: balance; letter-spacing: -.035em; text-shadow: 0 4px 30px rgba(0, 0, 0, .3); }
+.hero__lead { margin-top: 20px; max-width: 54ch; font-size: clamp(1.02rem, 1.6vw, 1.25rem); color: rgba(255, 255, 255, .92); }
+.hero__search {
+  position: relative; margin-top: 34px; display: flex; align-items: center; gap: 12px; max-width: 680px;
+  background: #fff; color: var(--text); border-radius: 999px; padding: 8px 8px 8px 22px; box-shadow: var(--shadow-lg);
+}
+.hero__search svg { flex: none; color: var(--primary); }
+.hero__search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 1.05rem; padding: 10px 0; }
+.hero__chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+.hero__chips button { border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .14); backdrop-filter: blur(6px); color: #fff; border-radius: 999px; padding: 7px 15px; font-size: .9rem; transition: background .2s, transform .2s; }
+.hero__chips button:hover { background: var(--accent); color: #3a2a00; transform: translateY(-2px); }
+.suggest { position: absolute; left: 0; right: 0; top: calc(100% + 8px); background: #fff; color: var(--text); border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); overflow: hidden; z-index: 5; }
+.suggest li { padding: 11px 20px; display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
+.suggest li:hover, .suggest li.is-hover { background: #EAF4EE; }
+.suggest small { color: var(--muted); }
+
+/* Улуттук оюу-чийменден шыктанган жука тилке (koshkor-muiz мотиви, ашыкча эмес) */
+.ornament { position: absolute; left: 0; right: 0; bottom: 0; height: 36px; opacity: .9;
+  background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='36' viewBox='0 0 44 36'><g fill='none' stroke='%23F4B942' stroke-width='1.6' stroke-linecap='round'><path d='M22 9l7 9-7 9-7-9z'/><path d='M15 18C8 18 6 11 11 9M29 18c7 0 9 7 4 9M22 9c0-5 6-6 8-2M22 27c0 5-6 6-8 2'/></g></svg>") repeat-x center / 44px 36px;
+  -webkit-mask: linear-gradient(0deg, #000 60%, transparent); mask: linear-gradient(0deg, #000 60%, transparent);
+}
+.hero .ornament { background-color: transparent; }
+.ornament--footer { position: relative; display: block; height: 36px; background-color: transparent; opacity: .5; margin-bottom: 28px; }
+
+/* ---------- 5. SECTIONS ---------- */
+.section { padding: 84px 0; }
+.section--tint { background: #EEF5F0; }
+.section__head { margin-bottom: 34px; max-width: 760px; }
+.section__head h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; }
+.section__head p { margin-top: 10px; color: var(--muted); font-size: 1.05rem; }
+.section__head--row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; max-width: none; flex-wrap: wrap; }
+.grid { display: grid; gap: 24px; }
+.grid--places { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid--cards { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.grid--regions { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.grid--reviews { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.empty { text-align: center; color: var(--muted); padding: 40px 20px; border: 2px dashed var(--line); border-radius: var(--radius); grid-column: 1 / -1; background: #fff; }
+
+/* ---------- 6. CARDS ---------- */
+.card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+.card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.card[data-action] { cursor: pointer; }
+.card__media { position: relative; aspect-ratio: 16 / 11; overflow: hidden; background: #cfe3d9; }
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.card:hover .card__media img { transform: scale(1.09); }
+.card__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card__body .btn { margin-top: auto; }
+.card__row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.card__row h3 { font-size: 1.15rem; }
+.rating { font-weight: 700; font-size: .92rem; white-space: nowrap; background: #FFF6DD; border-radius: 999px; padding: 2px 10px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .88rem; color: var(--muted); }
+.chip { display: inline-block; font-size: .8rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: #E3F1E9; color: var(--primary); }
+.chip--float { position: absolute; left: 14px; bottom: 14px; background: rgba(255, 255, 255, .92); backdrop-filter: blur(6px); }
+.fav { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .92); color: #9aa5a0; font-size: 1.15rem; display: grid; place-items: center; transition: transform .25s var(--ease), color .2s; z-index: 2; }
+.fav:hover { transform: scale(1.12); }
+.fav.is-on { color: #E0344F; animation: pop .35s var(--ease); }
+@keyframes pop { 50% { transform: scale(1.35); } }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.price { font-weight: 800; color: var(--primary); }
+
+/* Region cards */
+.region-card { padding: 24px; gap: 14px; }
+.region-card h3 { font-size: 1.3rem; }
+.region-card ul { display: flex; flex-wrap: wrap; gap: 6px; }
+.region-card .label { font-size: .86rem; font-weight: 600; color: var(--muted); }
+.region-card__bar { height: 6px; border-radius: 6px; background: var(--grad); width: 48px; }
+
+/* Tour companies */
+.company { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; margin-bottom: 28px; }
+.company__head { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.company__logo { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 1.3rem; }
+.company__info { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9rem; color: var(--muted); margin-top: 6px; }
+.company__info a { color: var(--primary); font-weight: 600; }
+.company__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.company__tours { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.tour-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 12px; position: relative; transition: transform .3s var(--ease), box-shadow .3s, border-color .3s; background: #fff; }
+.tour-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: transparent; }
+.tour-card h4 { font-size: 1.08rem; padding-right: 40px; }
+.tour-card .fav { position: absolute; top: 14px; right: 14px; background: #F3F7F5; width: 34px; height: 34px; }
+.inc { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; font-size: .86rem; }
+.inc .yes { color: var(--primary); } .inc .no { color: #B4423A; }
+.tour-card .btn { margin-top: auto; }
+
+/* Reviews */
+.review { background: #fff; border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+.review .stars { color: var(--accent); letter-spacing: 3px; font-size: 1.1rem; }
+.review blockquote { margin: 0; font-size: 1.02rem; }
+.review cite { font-style: normal; font-weight: 600; color: var(--muted); margin-top: auto; }
+
+/* ---------- 7. FILTERS / FORMS ---------- */
+.filters { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 18px; display: grid; gap: 14px; }
+.filters--inline { grid-auto-flow: column; justify-content: start; align-items: end; grid-auto-columns: minmax(180px, 240px); }
+.filters__row { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+.field { display: grid; gap: 5px; min-width: 150px; font-size: .84rem; font-weight: 600; color: var(--muted); }
+.field--grow { flex: 1; min-width: 220px; }
+.field input, .field select, .field textarea { border: 1.5px solid var(--line); background: #fff; border-radius: var(--radius-sm); padding: 11px 13px; font-weight: 500; color: var(--text); width: 100%; transition: border-color .2s, box-shadow .2s; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(46, 139, 87, .15); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { border: 1.5px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: .9rem; transition: all .2s; }
+.chips button:hover { border-color: var(--secondary); }
+.chips button.is-active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.results-bar { display: flex; justify-content: space-between; align-items: center; margin: 6px 4px 18px; color: var(--muted); font-weight: 500; }
+
+/* ---------- 8. MODAL ---------- */
+.modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; }
+.modal[hidden] { display: none; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(7, 30, 22, .62); backdrop-filter: blur(4px); animation: fade .25s; }
+.modal__dialog { position: relative; width: min(960px, 100%); max-height: calc(100svh - 40px); overflow-y: auto; background: var(--bg); border-radius: 26px; box-shadow: var(--shadow-lg); animation: rise .35s var(--ease); outline: 0; overscroll-behavior: contain; }
+.modal__dialog--narrow { width: min(520px, 100%); }
+@keyframes fade { from { opacity: 0; } } @keyframes rise { from { opacity: 0; transform: translateY(26px) scale(.98); } }
+.modal__close, .modal__back { position: sticky; top: 14px; z-index: 6; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .95); box-shadow: 0 4px 14px rgba(0, 0, 0, .2); font-size: 1rem; display: grid; place-items: center; }
+.modal__close { float: right; margin: 14px 14px -54px 0; }
+.modal__back { float: left; margin: 14px 0 -54px 14px; }
+.m-hero { position: relative; height: 300px; overflow: hidden; background: #cfe3d9; }
+.m-hero img { width: 100%; height: 100%; object-fit: cover; }
+.m-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 40, 30, .8), transparent 60%); }
+.m-hero__text { position: absolute; z-index: 2; left: 28px; right: 28px; bottom: 22px; color: #fff; }
+.m-hero__text h2 { font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800; text-transform: none; }
+.m-hero__text .rating { background: rgba(255, 255, 255, .92); color: var(--text); display: inline-block; margin-top: 8px; }
+.m-body { padding: 24px 28px 32px; }
+.m-simple { padding: 56px 28px 30px; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--line); margin-bottom: 22px; scrollbar-width: thin; }
+.tabs button { flex: none; border: 0; background: none; padding: 12px 16px; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; transition: color .2s, border-color .2s; }
+.tabs button:hover { color: var(--primary); }
+.tabs button.is-active { color: var(--primary); border-color: var(--accent); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin: 20px 0; }
+.stat { background: #fff; border-radius: var(--radius-sm); padding: 14px 16px; box-shadow: 0 3px 12px rgba(11, 60, 44, .07); }
+.stat small { display: block; color: var(--muted); font-weight: 600; }
+.stat b { font-size: 1.02rem; }
+.m-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.m-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 16px; }
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.mini { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(11, 60, 44, .08); display: flex; flex-direction: column; transition: transform .3s var(--ease); }
+.mini:hover { transform: translateY(-4px); }
+.mini .card__media { aspect-ratio: 16 / 9; }
+.mini .card__body { padding: 14px 16px 16px; gap: 7px; }
+.mini h4 { font-size: 1rem; }
+.mini p { font-size: .88rem; color: var(--muted); }
+.mini .btn { padding: 9px 16px; font-size: .9rem; }
+.timeline { border-left: 3px solid var(--accent); margin: 8px 0 8px 10px; padding-left: 22px; display: grid; gap: 22px; }
+.timeline h4 { font-size: 1.05rem; color: var(--primary); }
+.timeline li { color: var(--muted); padding-left: 4px; }
+.timeline li::before { content: "→ "; color: var(--secondary); font-weight: 700; }
+.form { display: grid; gap: 14px; margin-top: 18px; }
+.form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.success { text-align: center; padding: 20px 0; }
+.success .tick { width: 66px; height: 66px; margin: 0 auto 14px; border-radius: 50%; background: var(--grad); color: #fff; display: grid; place-items: center; font-size: 2rem; }
+
+/* ---------- 9. MAP / PLANNER ---------- */
+.mapwrap { display: grid; grid-template-columns: 1.7fr 1fr; gap: 24px; }
+.map { position: relative; background: linear-gradient(180deg, #d6ebf5, #eaf6f1); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; min-height: 380px; }
+.map svg { width: 100%; height: 100%; }
+.map .land { fill: #cfe5d6; stroke: #7fb092; stroke-width: 2; stroke-linejoin: round; }
+.map .pin { cursor: pointer; }
+.map .pin circle { fill: var(--primary); stroke: #fff; stroke-width: 3; transition: r .2s, fill .2s; }
+.map .pin:hover circle, .map .pin.is-active circle { fill: #E9A21B; r: 12; }
+.map .pin text { font-size: 15px; font-weight: 700; fill: var(--text); paint-order: stroke; stroke: #fff; stroke-width: 4px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.map .pin:hover text, .map .pin.is-active text { opacity: 1; }
+.map__side { display: grid; gap: 14px; align-content: start; }
+.map__item { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left; background: #fff; border: 1.5px solid transparent; border-radius: 16px; padding: 10px; box-shadow: 0 4px 14px rgba(11, 60, 44, .07); transition: border-color .2s, transform .2s; }
+.map__item:hover, .map__item.is-active { border-color: var(--accent); transform: translateX(4px); }
+.map__item img { width: 58px; height: 58px; border-radius: 12px; object-fit: cover; flex: none; }
+.map__item b { display: block; } .map__item small { color: var(--muted); }
+.map__detail { background: #fff; border-radius: 16px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 10px; }
+.planner { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; }
+.planner__form { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; display: grid; gap: 16px; }
+.planner__result { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; min-height: 280px; }
+.plan-day { display: grid; grid-template-columns: 92px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.plan-day:last-of-type { border-bottom: 0; }
+.plan-day b { color: var(--primary); }
+.plan-day li { margin-bottom: 4px; }
+.plan-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 14px; }
+.plan-note { margin-top: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-weight: 600; }
+.plan-note.ok { background: #E3F1E9; color: var(--primary); } .plan-note.warn { background: #FFF1D6; color: #8a5a00; }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.contact h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; margin-bottom: 14px; }
+.contact__list { margin-top: 20px; display: grid; gap: 10px; font-weight: 600; }
+.contact__form { background: #fff; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); display: grid; gap: 14px; }
+
+/* ---------- 10. FOOTER ---------- */
+.footer { background: #07382A; color: rgba(255, 255, 255, .85); padding-top: 24px; }
+.footer__grid { display: grid; grid-template-columns: 1.3fr 1.5fr 1fr; gap: 32px; padding-bottom: 32px; }
+.logo--light { color: #fff; }
+.footer__slogan { margin-top: 12px; max-width: 30ch; }
+.footer__links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; align-content: start; }
+.footer__links a, .footer__social a { transition: color .2s; } .footer__links a:hover, .footer__social a:hover { color: var(--accent); }
+.footer__social { display: grid; gap: 8px; align-content: start; }
+.footer__copy { border-top: 1px solid rgba(255, 255, 255, .15); padding: 18px 0 26px; font-size: .86rem; color: rgba(255, 255, 255, .6); }
+
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 30px); background: #0b2a21; color: #fff; padding: 13px 22px; border-radius: 999px; box-shadow: var(--shadow-lg); z-index: 200; opacity: 0; pointer-events: none; transition: all .35s var(--ease); max-width: calc(100% - 32px); text-align: center; }
+.toast.is-show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- 11. RESPONSIVE ---------- */
+@media (max-width: 1280px) {
+  .nav { position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; background: #fff; color: var(--text); padding: 12px 20px 24px; margin: 0; box-shadow: 0 20px 30px rgba(0, 0, 0, .12); transform: translateY(-14px); opacity: 0; visibility: hidden; transition: all .3s var(--ease); max-height: calc(100svh - var(--header-h)); overflow: auto; }
+  .nav.is-open { transform: none; opacity: 1; visibility: visible; }
+  .nav a { padding: 14px 12px; border-radius: 12px; font-size: 1.02rem; }
+  .burger { display: block; }
+  .header { background: rgba(255, 255, 255, .0); }
+  .header:has(.nav.is-open) { background: #fff; color: var(--text); }
+}
+@media (max-width: 960px) {
+  .select--header { display: none; }
+  .mapwrap, .planner, .contact { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr; }
+  .company__head { grid-template-columns: auto 1fr; } .company__actions { grid-column: 1 / -1; }
+  .filters--inline { grid-auto-flow: row; grid-auto-columns: auto; }
+}
+@media (max-width: 640px) {
+  :root { --header-h: 64px; }
+  .section { padding: 60px 0; }
+  .logo span { font-size: 1rem; }
+  .hsearch.is-open input { width: 110px; }
+  .hero { padding-bottom: 90px; }
+  .hero__search { flex-wrap: wrap; border-radius: 26px; padding: 14px; }
+  .hero__search .btn { width: 100%; }
+  .hero__search svg { display: none; }
+  .hero__search input { flex-basis: 100%; padding: 6px 4px; }
+  .grid--places, .grid--cards, .grid--regions { grid-template-columns: 1fr; }
+  .modal { padding: 0; align-items: end; }
+  .modal__dialog { border-radius: 26px 26px 0 0; max-height: 94svh; width: 100%; }
+  .m-hero { height: 230px; } .m-body { padding: 20px 18px 28px; }
+  .plan-day { grid-template-columns: 1fr; gap: 4px; }
+  .form .two { grid-template-columns: 1fr; }
+  .lang button { padding: 4px 7px; }
+  .header__tools { gap: 4px; }
+  .header__tools .btn--sm { display: none; }
+}
+@media (max-width: 420px) { .fav-btn { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Mobile safe-area (published page) */
+.header { padding-top: env(safe-area-inset-top, 0px); height: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
+.footer__copy { padding-bottom: calc(26px + env(safe-area-inset-bottom, 0px)); }
+
+</style>
+</head>
+<body>
+
+<!-- ========== 1. HEADER ========== -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#home" class="logo" aria-label="Кыргызстан Travel">
+      <svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="#0B6E4F"/>
+        <path d="M5 23l7-10 4 5 3-4 8 9z" fill="#fff"/>
+        <circle cx="22" cy="10" r="2.4" fill="#F4B942"/>
+      </svg>
+      <span>Кыргызстан Travel</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Башкы меню">
+      <a href="#home" data-i18n="nav_home">Башкы бет</a>
+      <a href="#places" data-i18n="nav_places">Кооз жерлер</a>
+      <a href="#regions" data-i18n="nav_regions">Облустар</a>
+      <a href="#tours" data-i18n="nav_tours">Турлар</a>
+      <a href="#hotels" data-i18n="nav_hotels">Мейманканалар</a>
+      <a href="#food" data-i18n="nav_food">Кафе &amp; Ресторан</a>
+      <a href="#contact" data-i18n="nav_contact">Байланыш</a>
+    </nav>
+
+    <div class="header__tools">
+      <div class="hsearch" id="hsearch">
+        <button class="icon-btn" data-action="toggle-search" aria-label="Издөө">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <input id="headerSearch" type="search" placeholder="Издөө…" data-i18n-ph="search_short" autocomplete="off">
+      </div>
+      <select id="regionSelect" class="select select--header" aria-label="Облус тандоо"></select>
+      <div class="lang" role="group" aria-label="Тил">
+        <button data-lang="ky" class="is-active">KG</button>
+        <button data-lang="ru">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="icon-btn fav-btn" data-action="open-favs" aria-label="Тандалмалар">♥<span id="favCount">0</span></button>
+      <button class="btn btn--sm" data-action="open-login" data-i18n="login">Кирүү</button>
+      <button class="burger" id="burger" aria-label="Менюну ачуу" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ========== 2. HERO ========== -->
+<section class="hero" id="home">
+  <div class="hero__art" id="heroArt" aria-hidden="true"></div>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="container hero__content">
+    <h1 data-i18n="hero_title">Кыргызстанды кыдыр — унутулгус саякатты башта!</h1>
+    <p class="hero__lead" data-i18n="hero_sub">Кыргызстандын эң кооз жерлерин, мейманканаларын, ресторандарын жана туристтик турларды бир жерден тап.</p>
+
+    <form class="hero__search" id="heroForm" autocomplete="off" role="search">
+      <label class="visually-hidden" for="heroInput">Кайда баргыңыз келет?</label>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <input id="heroInput" type="search" placeholder="Кайда баргыңыз келет?" data-i18n-ph="hero_ph">
+      <button class="btn" type="submit" data-i18n="search_btn">Издөө</button>
+      <ul class="suggest" id="suggest" hidden></ul>
+    </form>
+
+    <div class="hero__chips" id="heroChips" aria-label="Популярдуу издөөлөр"></div>
+  </div>
+  <div class="ornament" aria-hidden="true"></div>
+</section>
+
+<!-- ========== 3. POPULAR PLACES + 13. SEARCH & FILTER ========== -->
+<section class="section" id="places">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="places_title">Кыргызстандын популярдуу жерлери</h2>
+      <p>Жайгашкан жериңизди тандаңыз — аралык жана жол убактысы ошого жараша эсептелет.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <div class="filters__row">
+        <label class="field field--grow"><span>Издөө</span>
+          <input id="fQuery" type="search" placeholder="Мисалы: Ош, көл, шаркыратма…">
+        </label>
+        <label class="field"><span>Сиз кайдасыз?</span>
+          <select id="fOrigin"></select>
+        </label>
+        <button class="btn btn--ghost btn--sm" data-action="geolocate" type="button">📍 Мен кайдамын</button>
+      </div>
+      <div class="filters__row">
+        <label class="field"><span>Облус</span><select id="fRegion"></select></label>
+        <label class="field"><span>Рейтинг</span>
+          <select id="fRating"><option value="0">Баары</option><option value="4">⭐ 4+</option><option value="4.5">⭐ 4.5+</option><option value="4.8">⭐ 4.8+</option></select>
+        </label>
+        <label class="field"><span>Кирүү баасы</span>
+          <select id="fPrice"><option value="">Баары</option><option value="free">Акысыз</option><option value="low">1–200 сом</option><option value="high">200 сомдон жогору</option></select>
+        </label>
+        <label class="field"><span>Аралык</span>
+          <select id="fDist"><option value="">Баары</option><option value="100">100 км чейин</option><option value="300">300 км чейин</option><option value="600">600 км чейин</option></select>
+        </label>
+        <label class="field"><span>Иреттөө</span>
+          <select id="fSort"><option value="rating">Рейтинг боюнча</option><option value="dist">Аралык боюнча</option><option value="name">Аты боюнча</option></select>
+        </label>
+      </div>
+      <div class="chips" id="typeChips" role="group" aria-label="Туризмдин түрү"></div>
+    </div>
+
+    <div class="results-bar"><span id="resultCount"></span><button class="link-btn" id="resetFilters" type="button">Фильтрлерди тазалоо</button></div>
+    <div class="grid grid--places" id="placesGrid"></div>
+  </div>
+</section>
+
+<!-- ========== 9. REGIONS ========== -->
+<section class="section section--tint" id="regions">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="regions_title">Кыргызстандын облустарын изилде</h2>
+      <p>Жети облус жана эки шаар — ар биринин өз мүнөзү бар.</p>
+    </div>
+    <div class="grid grid--regions" id="regionsGrid"></div>
+  </div>
+</section>
+
+<!-- ========== 11. TOURS & COMPANIES ========== -->
+<section class="section" id="tours">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="tours_title">Тур компаниялар жана турлар</h2>
+      <p id="toursNote">Ишенимдүү компаниялардын даяр турлары.</p>
+    </div>
+    <div class="filters filters--inline">
+      <label class="field"><span>Турдун узактыгы</span>
+        <select id="tDur"><option value="">Баары</option><option value="1">1 күн</option><option value="2-3">2–3 күн</option><option value="4+">4 күн жана көп</option></select>
+      </label>
+      <label class="field"><span>Баасы (адамга)</span>
+        <select id="tPrice"><option value="">Баары</option><option value="0-5000">0–5 000 сом</option><option value="5000-10000">5 000–10 000 сом</option><option value="10000+">10 000 сомдон жогору</option></select>
+      </label>
+      <button class="link-btn" id="resetTours" type="button">Тазалоо</button>
+    </div>
+    <div id="companies"></div>
+  </div>
+</section>
+
+<!-- ========== HOTELS ========== -->
+<section class="section section--tint" id="hotels">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div><h2 data-i18n="hotels_title">Мейманканалар</h2><p>Кооз жерлердин жанындагы ыңгайлуу жайлар.</p></div>
+      <label class="field"><span>Облус</span><select id="hotelRegion"></select></label>
+    </div>
+    <div class="grid grid--cards" id="hotelsGrid"></div>
+  </div>
+</section>
+
+<!-- ========== CAFE & RESTAURANTS ========== -->
+<section class="section" id="food">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div><h2 data-i18n="food_title">Кафе &amp; Ресторан</h2><p>Улуттук ашкана жана заманбап кафелер.</p></div>
+      <label class="field"><span>Облус</span><select id="foodRegion"></select></label>
+    </div>
+    <div class="grid grid--cards" id="foodGrid"></div>
+  </div>
+</section>
+
+<!-- ========== 14. MAP ========== -->
+<section class="section section--tint" id="map">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="map_title">Картадан изилде</h2>
+      <p>Маркерди басып, жер тууралуу маалыматты ачыңыз.</p>
+    </div>
+    <div class="mapwrap">
+      <!-- MapProvider ушул контейнерге карта куруп салат (script.js → MapProvider).
+           Google Maps/Leaflet/Mapbox кошуу үчүн MapProvider.mount() функциясын алмаштыруу жетиштүү. -->
+      <div class="map" id="mapContainer" role="img" aria-label="Кыргызстандын схемалык картасы"></div>
+      <aside class="map__side" id="mapSide"></aside>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 15. TRAVEL PLANNER ========== -->
+<section class="section" id="planner">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="planner_title">Саякатыңызды пландаңыз</h2>
+      <p>Кайдан, кайда, канча күн жана бюджетти тандаңыз — маршрут даяр болот.</p>
+    </div>
+    <div class="planner">
+      <form class="planner__form" id="plannerForm">
+        <label class="field"><span>Кайдан</span><select id="pFrom"></select></label>
+        <label class="field"><span>Кайда</span><select id="pTo"></select></label>
+        <label class="field"><span>Күн</span><select id="pDays"></select></label>
+        <label class="field"><span>Бюджет (сом)</span><input id="pBudget" type="number" min="1000" step="500" value="10000"></label>
+        <button class="btn btn--block" type="submit">План түзүү</button>
+      </form>
+      <div class="planner__result" id="plannerResult">
+        <div class="empty"><p>Маалыматтарды толтуруп, «План түзүү» баскычын басыңыз.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 16. REVIEWS ========== -->
+<section class="section section--tint" id="reviews">
+  <div class="container">
+    <div class="section__head"><h2 data-i18n="reviews_title">Туристтердин пикирлери</h2></div>
+    <div class="grid grid--reviews" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="section" id="contact">
+  <div class="container contact">
+    <div>
+      <h2>Байланыш</h2>
+      <p>Суроолоруңуз же сунуштарыңыз болсо, жазыңыз. Жумуш күндөрү 24 саат ичинде жооп беребиз.</p>
+      <ul class="contact__list">
+        <li>📞 +996 555 000 111</li>
+        <li>✉️ info@kyrgyzstan-travel.demo</li>
+        <li>📍 Бишкек шаары, Чүй проспекти 100</li>
+      </ul>
+    </div>
+    <form class="contact__form" id="contactForm">
+      <label class="field"><span>Атыңыз</span><input name="name" required></label>
+      <label class="field"><span>Электрондук почта</span><input name="email" type="email" required></label>
+      <label class="field"><span>Билдирүү</span><textarea name="msg" rows="4" required></textarea></label>
+      <button class="btn" type="submit">Жиберүү</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ========== 17. FOOTER ========== -->
+<footer class="footer">
+  <div class="ornament ornament--footer" aria-hidden="true"></div>
+  <div class="container footer__grid">
+    <div>
+      <div class="logo logo--light"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#fff"/><path d="M5 23l7-10 4 5 3-4 8 9z" fill="#0B6E4F"/><circle cx="22" cy="10" r="2.4" fill="#F4B942"/></svg><span>Кыргызстан Travel</span></div>
+      <p class="footer__slogan">Кыргызстандын кереметтерин бирге ачалы.</p>
+    </div>
+    <nav class="footer__links" aria-label="Footer меню">
+      <a href="#home">Башкы бет</a><a href="#places">Кооз жерлер</a><a href="#regions">Облустар</a><a href="#tours">Турлар</a>
+      <a href="#hotels">Мейманканалар</a><a href="#food">Ресторандар</a><a href="#contact">Байланыш</a>
+    </nav>
+    <div class="footer__social" aria-label="Социалдык тармактар">
+      <a href="#" aria-label="Instagram">Instagram</a><a href="#" aria-label="Facebook">Facebook</a>
+      <a href="#" aria-label="TikTok">TikTok</a><a href="#" aria-label="WhatsApp">WhatsApp</a>
+    </div>
+  </div>
+  <div class="container footer__copy">© 2026 Кыргызстан Travel. Demo долбоор — маалыматтар үлгү катары берилген.</div>
+</footer>
+
+<!-- ========== MODAL + TOAST ========== -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__backdrop" data-action="close-modal"></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <button class="modal__close" data-action="close-modal" aria-label="Жабуу">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ==========================================================
+   Кыргызстан Travel — script.js (Vanilla JS, backend жок)
+   1. Mock data + API катмары   2. Утилиталар   3. Art (SVG сүрөттөр)
+   4. State & i18n              5. Renderers    6. Modal views
+   7. Map                       8. Planner      9. Events & init
+   Маалыматтарды чыныгы API менен алмаштыруу үчүн: API объектин өзгөртүү жетиштүү.
+   ========================================================== */
+'use strict';
+
+/* ==========================================================
+   1. MOCK DATA
+   ========================================================== */
+const DATA = {
+  cities: {
+    bishkek:   { id: 'bishkek',   name: 'Бишкек',     lat: 42.8746, lng: 74.5698 },
+    osh:       { id: 'osh',       name: 'Ош',         lat: 40.5283, lng: 72.7985 },
+    jalalabad: { id: 'jalalabad', name: 'Жалал-Абад', lat: 40.9333, lng: 72.9833 },
+    naryn:     { id: 'naryn',     name: 'Нарын',      lat: 41.4287, lng: 75.9911 },
+    karakol:   { id: 'karakol',   name: 'Каракол',    lat: 42.4907, lng: 78.3936 },
+    talas:     { id: 'talas',     name: 'Талас',      lat: 42.5228, lng: 72.2427 },
+    batken:    { id: 'batken',    name: 'Баткен',     lat: 40.0627, lng: 70.8194 }
+  },
+
+  // Облустар жана шаарлар (дубликат Баткен алынып салынды: 7 облус + 2 шаар)
+  regions: [
+    { id: 'batken',    name: 'Баткен облусу',    desc: 'Тоолордун этегиндеги тынч өрөөндөр жана жашыл жайлоолор.', lat: 40.06, lng: 70.82 },
+    { id: 'osh',       name: 'Ош облусу',        desc: 'Тарыхка, тоолорго жана укмуштуу жаратылышка бай аймак.',   lat: 40.40, lng: 73.10 },
+    { id: 'jalalabad', name: 'Жалал-Абад облусу', desc: 'Дүйнөдөгү эң чоң жаңгак токою жана шаркыратмалар.',        lat: 41.10, lng: 72.95 },
+    { id: 'naryn',     name: 'Нарын облусу',     desc: 'Бийик жайлоолор, жылкычылар жана жылдыздуу түндөр.',        lat: 41.60, lng: 75.40 },
+    { id: 'issykkul',  name: 'Ысык-Көл облусу',  desc: 'Тоолордун ортосундагы жылуу көл жана кызыл аскалар.',       lat: 42.45, lng: 77.60 },
+    { id: 'chuy',      name: 'Чүй облусу',       desc: 'Борбордук аймак: Ала-Арча, түздүктөр жана байыркы мунаралар.', lat: 42.75, lng: 74.80 },
+    { id: 'talas',     name: 'Талас облусу',     desc: 'Манас эпосунун мекени, тынч өрөөндөр жана тарыхый эстеликтер.', lat: 42.50, lng: 72.30 },
+    { id: 'bishkek',   name: 'Бишкек шаары',     desc: 'Борбор шаар — паркы, музейлери, кафелери жана тоого жакын жол.', lat: 42.87, lng: 74.57, places: ['ala-archa'] },
+    { id: 'osh-city',  name: 'Ош шаары',         desc: 'Үч миң жылдык тарыхы бар түштүк борбор.',                   lat: 40.53, lng: 72.80, places: ['suleiman'] }
+  ],
+
+  // Туристтик жерлер. img — чыныгы сүрөт жолу; жок болсо SVG иллюстрация көрсөтүлөт.
+  places: [
+    { id: 'suleiman',  name: 'Сулайман-Тоо', region: 'osh', location: 'Ош шаары', lat: 40.5283, lng: 72.7773, rating: 4.9, price: 100, types: ['тарыхый', 'тоо'], theme: 'rock',
+      short: 'Ош шаарынын борборундагы ыйык тоо, ЮНЕСКОнун Бүткүл дүйнөлүк мурасы.', best: 'Апрель – октябрь, эртең менен же күүгүмдө', img: '',
+      desc: 'Сулайман-Тоо — Ош шаарында жайгашкан, Кыргызстандын тарыхый жана маданий мааниси чоң болгон ыйык тоолордун бири. Тоонун боюнда байыркы петроглифтер, үңкүрлөр жана музей бар. Чокуга чыгуу 45–60 мүнөт алат.' },
+    { id: 'issykkul',  name: 'Ысык-Көл', region: 'issykkul', location: 'Чолпон-Ата, Ысык-Көл облусу', lat: 42.65, lng: 77.08, rating: 4.8, price: 0, types: ['көл', 'эс алуу'], theme: 'lake',
+      short: 'Дүйнөдөгү эң чоң тоо көлдөрүнүн бири: жылуу жээктер жана тоолордун көрүнүшү.', best: 'Июнь – сентябрь', img: '',
+      desc: 'Ысык-Көл — кышында да тоңбогон терең тоо көлү. Түндүк жээгинде пляждар жана пансионаттар, түштүк жээгинде жапжаңы жаратылыш жана каньондор бар. Эс алуу жана көчмөн маданиятын таанып билүү үчүн ылайыктуу.' },
+    { id: 'ala-archa', name: 'Ала-Арча', region: 'chuy', location: 'Ала-Арча мамлекеттик паркы, Чүй облусу', lat: 42.5833, lng: 74.4833, rating: 4.8, price: 150, types: ['тоо', 'шаркыратма', 'экстремалдык'], theme: 'mountain',
+      short: 'Бишкектен бир саатча жолдогу улуттук парк: мөңгүлөр, шаркыратмалар, жөө маршруттар.', best: 'Июнь – сентябрь', img: '',
+      desc: 'Ала-Арча — Кыргыз Ала-Тоосунун бүктөмүндөгү улуттук парк. Жөө жүрүш жолдору Ак-Сай мөңгүсүнө жана Ратцек базалык лагерине алып барат. Кыска күндүк саякатка да, бир нече күндүк тоо жүрүшүнө да ылайыктуу.' },
+    { id: 'son-kul',   name: 'Сон-Көл', region: 'naryn', location: 'Нарын облусу', lat: 41.8333, lng: 75.1333, rating: 4.9, price: 0, types: ['көл', 'эс алуу'], theme: 'yurt',
+      short: 'Деңиз деңгээлинен 3000 м бийиктиктеги көл, жайлоодо боз үй жана жылкылар.', best: 'Июнь – сентябрь', img: '',
+      desc: 'Сон-Көл — жайкы жайлоолордун ортосундагы тоо көлү. Боз үйдө түнөп, жылкы минип, кымыз даамын татып көрүүгө болот. Түнкүсүн асман жылдыздарга толот. Жайында гана жеткиликтүү, жылуу кийим алыңыз.' },
+    { id: 'arslanbap', name: 'Арсланбап', region: 'jalalabad', location: 'Базар-Коргон району, Жалал-Абад облусу', lat: 41.3333, lng: 72.9667, rating: 4.7, price: 100, types: ['шаркыратма', 'эс алуу', 'тоо'], theme: 'waterfall',
+      short: 'Дүйнөдөгү эң чоң жаңгак токою жана эки кооз шаркыратма.', best: 'Апрель – октябрь', img: '',
+      desc: 'Арсланбапта жаңгак токойлору жүздөгөн чакырымга созулат. Кичи жана чоң шаркыратмаларга жөө баруу ыңгайлуу, айылда үй мейманканалары көп. Күзүндө жаңгак жыйноо мезгили өзгөчө кызыктуу.' },
+    { id: 'abshir-ata', name: 'Абшыр-Ата', region: 'osh', location: 'Ош облусу', lat: 40.37, lng: 72.99, rating: 4.6, price: 100, types: ['шаркыратма', 'эс алуу'], theme: 'waterfall',
+      short: 'Жашыл капчыгайдагы шаркыратма, жайкы эс алуу үчүн сонун жер.', best: 'Май – сентябрь', img: '',
+      desc: 'Абшыр-Ата — тоо капчыгайындагы шаркыратма жана тазалуу суулар менен белгилүү эс алуу аймагы. Жайында салкын, чайканалар жана жөө жолдор бар. Ош шаарынан бир күндүк сапарга ылайыктуу.' },
+    { id: 'kara-koi',  name: 'Кара-Кой', region: 'osh', location: 'Ош облусу', lat: 40.20, lng: 73.45, rating: 4.5, price: 0, types: ['тоо', 'эс алуу'], theme: 'valley',
+      short: 'Кең өрөөн, тоо этектери жана тынч жаратылыш.', best: 'Май – сентябрь', img: '',
+      desc: 'Кара-Кой — шаардын шаштысынан алыс, табият менен жалгыз калууга ылайыктуу жер. Жөө жана ат менен кыдырууга болот, жергиликтүү үй-бүлөлөрдөн үй тамагын даамдаса болот.' },
+    { id: 'alay',      name: 'Алай өрөөнү', region: 'osh', location: 'Алай району, Ош облусу', lat: 39.6, lng: 72.9, rating: 4.9, price: 0, types: ['тоо', 'экстремалдык', 'эс алуу'], theme: 'valley',
+      short: 'Памир-Алай тоолорунун этегиндеги кең өрөөн, Ленин чокусунун көрүнүшү менен.', best: 'Июнь – сентябрь', img: '',
+      desc: 'Алай өрөөнү — түшүндө эле көргөндөй кең жайыттар жана алыста кар баскан чокулар. Сары-Таш айылынан Памир тракты башталат. Жайында малчылардын боз үйлөрүндө конууга болот.' },
+    { id: 'lenin',     name: 'Ленин чокусу', region: 'osh', location: 'Алай тоо кыркасы, Ош облусу', lat: 39.34, lng: 72.88, rating: 4.8, price: 0, types: ['тоо', 'экстремалдык'], theme: 'mountain',
+      short: '7134 м бийиктиктеги чоку: альпинисттер жана жөө жүрүшчүлөр үчүн базалык лагер бар.', best: 'Июль – август', img: '',
+      desc: 'Ленин чокусу — Алай кыркасынын эң бийик чокуларынын бири. Тажрыйбалуу альпинисттер үчүн кыйынчылыгы орточо болгон 7000 метрлик чоку. Башталгычтар базалык лагерге чейин жөө барып, көрүнүштөн ыракат алса болот.' },
+    { id: 'jeti-oguz', name: 'Жети-Өгүз', region: 'issykkul', location: 'Жети-Өгүз району, Ысык-Көл облусу', lat: 42.33, lng: 78.18, rating: 4.8, price: 100, types: ['тоо', 'эс алуу'], theme: 'rock',
+      short: 'Кызыл аскалар, жашыл жайлоолор жана ысык булактар.', best: 'Июнь – сентябрь', img: '',
+      desc: 'Жети-Өгүз — Каракол шаарынын жанындагы кызыл аскалардын капчыгайы. Жөө жүрүш, ат менен сейил жана санаторийлерде эс алуу мүмкүнчүлүгү бар. Кызыл аскалар күүгүмдө өзгөчө жаркырайт.' },
+    { id: 'manas-ordo', name: 'Манас Ордо', region: 'talas', location: 'Талас облусу', lat: 42.52, lng: 72.24, rating: 4.6, price: 100, types: ['тарыхый'], theme: 'historic',
+      short: 'Манас эпосуна арналган тарыхый-этнографиялык комплекс.', best: 'Апрель – октябрь', img: '',
+      desc: 'Манас Ордо — Талас өрөөнүндөгү эстелик-комплекс. Манас эпосунун каармандарына байланышкан жерлер жана музей бар. Таластын шаркыратмалары менен кошо бир күндүк сапарга жакшы.' }
+  ],
+
+  // Жакын жердеги башка кызыктуу жерлер (карточка түрүндө «Жакын жерлер» табында чыгат)
+  spots: [
+    { id: 's-osh-bazar', name: 'Ош базары',            lat: 40.5336, lng: 72.8040, theme: 'city',     short: 'Түштүктүн эң чоң жана эң түстүү базары: нан, сумсалар, жемиштер.' },
+    { id: 's-osh-center', name: 'Ош шаарынын борбору', lat: 40.5283, lng: 72.7985, theme: 'city',     short: 'Көчөлөр, парк жана кафелер — жөө басып кыдырууга ыңгайлуу.' },
+    { id: 's-rabat',    name: 'Рабат Абдуллахан мечити', lat: 40.5305, lng: 72.7960, theme: 'historic', short: 'Ош шаарындагы тарыхый мечит жана архитектуралык эстелик.' },
+    { id: 's-cholpon-petro', name: 'Чолпон-Ата петроглифтери', lat: 42.66, lng: 77.05, theme: 'historic', short: 'Ачык асман астындагы байыркы таш сүрөттөр музейи.' },
+    { id: 's-karakol-church', name: 'Каракол: Ыйык Троица чиркөөсү', lat: 42.4907, lng: 78.3936, theme: 'historic', short: 'Жыгачтан курулган кооз чиркөө, шаардын белгиси.' },
+    { id: 's-tash-rabat', name: 'Таш-Рабат', lat: 40.82, lng: 75.28, theme: 'historic', short: 'Тоолордогу таштан курулган байыркы жолоочулар конок үйү.' },
+    { id: 's-burana', name: 'Бурана мунарасы', lat: 42.7467, lng: 75.2500, theme: 'historic', short: 'Орто кылымдагы Баласагын шаарынын мунарасы.' },
+    { id: 's-ala-too-sq', name: 'Ала-Тоо аянты', lat: 42.8766, lng: 74.6030, theme: 'city', short: 'Бишкектин борбордук аянты, музейлер жана парктар жанында.' }
+  ],
+
+  hotels: [
+    { id: 'h1', name: 'Hotel Osh Palace', region: 'osh', lat: 40.5290, lng: 72.7950, rating: 4.7, price: 1500, address: 'Ош шаары, Курманжан Датка көчөсү 12' },
+    { id: 'h2', name: 'Alay Plaza', region: 'osh', lat: 40.5150, lng: 72.8000, rating: 4.5, price: 2200, address: 'Ош шаары, Ленин проспекти 45' },
+    { id: 'h3', name: 'Сулайман Guest House', region: 'osh', lat: 40.5300, lng: 72.7800, rating: 4.6, price: 900, address: 'Ош шаары, Сулайман-Тоонун этеги' },
+    { id: 'h4', name: 'Абшыр-Ата эс алуу борбору', region: 'osh', lat: 40.375, lng: 72.99, rating: 4.4, price: 1200, address: 'Абшыр-Ата капчыгайы' },
+    { id: 'h5', name: 'Кара-Кой Eco Camp', region: 'osh', lat: 40.21, lng: 73.44, rating: 4.5, price: 1000, address: 'Кара-Кой өрөөнү' },
+    { id: 'h6', name: 'Сары-Таш боз үй лагери', region: 'osh', lat: 39.73, lng: 73.25, rating: 4.6, price: 1300, address: 'Сары-Таш айылы, Алай району' },
+    { id: 'h7', name: 'Арсланбап Nut Lodge', region: 'jalalabad', lat: 41.34, lng: 72.96, rating: 4.6, price: 1100, address: 'Арсланбап айылы' },
+    { id: 'h8', name: 'Жалал-Абад City Hotel', region: 'jalalabad', lat: 40.9380, lng: 72.9830, rating: 4.3, price: 1800, address: 'Жалал-Абад шаары, Ленин көчөсү' },
+    { id: 'h9', name: 'Чолпон-Ата Resort', region: 'issykkul', lat: 42.65, lng: 77.08, rating: 4.7, price: 3500, address: 'Чолпон-Ата шаары, жээк' },
+    { id: 'h10', name: 'Каракол Zhyldyz Hotel', region: 'issykkul', lat: 42.4930, lng: 78.3900, rating: 4.5, price: 2000, address: 'Каракол шаары, Токтогул көчөсү' },
+    { id: 'h11', name: 'Жети-Өгүз Санаторийи', region: 'issykkul', lat: 42.33, lng: 78.18, rating: 4.4, price: 2400, address: 'Жети-Өгүз капчыгайы' },
+    { id: 'h12', name: 'Сон-Көл боз үй лагери', region: 'naryn', lat: 41.80, lng: 75.12, rating: 4.8, price: 1400, address: 'Сон-Көл жайлоосу' },
+    { id: 'h13', name: 'Нарын Ala-Too Hotel', region: 'naryn', lat: 41.4300, lng: 75.9900, rating: 4.2, price: 1600, address: 'Нарын шаары, Ленин көчөсү' },
+    { id: 'h14', name: 'Ала-Арча Alpine Lodge', region: 'chuy', lat: 42.57, lng: 74.48, rating: 4.6, price: 2600, address: 'Ала-Арча капчыгайынын кире бериши' },
+    { id: 'h15', name: 'Hotel Pinara', region: 'bishkek', lat: 42.8700, lng: 74.6000, rating: 4.6, price: 3200, address: 'Бишкек шаары, Чүй проспекти' },
+    { id: 'h16', name: 'Талас Plaza', region: 'talas', lat: 42.52, lng: 72.25, rating: 4.3, price: 1300, address: 'Талас шаары' }
+  ],
+
+  cafes: [
+    { id: 'c1', name: 'Navat', region: 'osh', lat: 40.5270, lng: 72.7900, rating: 4.8, avg: '700–1500 сом', cuisine: 'Кыргыз улуттук ашканасы', address: 'Ош шаары, Рыскулов көчөсү' },
+    { id: 'c2', name: 'Чайхана «Фергана»', region: 'osh', lat: 40.5340, lng: 72.8010, rating: 4.6, avg: '400–900 сом', cuisine: 'Өзбек жана ферганалык ашкана', address: 'Ош базарынын жанында' },
+    { id: 'c3', name: 'Dolce Cafe', region: 'osh', lat: 40.5260, lng: 72.7960, rating: 4.4, avg: '350–800 сом', cuisine: 'Кофе, десерт, жеңил тамак', address: 'Ош шаары, Навои көчөсү' },
+    { id: 'c4', name: 'Абшыр-Ата чайканасы', region: 'osh', lat: 40.372, lng: 72.99, rating: 4.5, avg: '300–700 сом', cuisine: 'Шашлык, лагман', address: 'Шаркыратманын жанында' },
+    { id: 'c5', name: 'Арсланбап жаңгак чайканасы', region: 'jalalabad', lat: 41.335, lng: 72.96, rating: 4.6, avg: '300–800 сом', cuisine: 'Үй ашканасы', address: 'Арсланбап айылы' },
+    { id: 'c6', name: 'Айсулуу кафе', region: 'issykkul', lat: 42.652, lng: 77.07, rating: 4.5, avg: '500–1200 сом', cuisine: 'Көл балыгы, европалык ашкана', address: 'Чолпон-Ата, жээк' },
+    { id: 'c7', name: 'Жети-Өгүз чайканасы', region: 'issykkul', lat: 42.335, lng: 78.17, rating: 4.4, avg: '300–700 сом', cuisine: 'Улуттук ашкана', address: 'Жети-Өгүз капчыгайы' },
+    { id: 'c8', name: 'Каракол Dungan Cafe', region: 'issykkul', lat: 42.49, lng: 78.395, rating: 4.7, avg: '400–900 сом', cuisine: 'Дунган ашканасы (ашлян-фу)', address: 'Каракол шаары' },
+    { id: 'c9', name: 'Сон-Көл боз үй ашканасы', region: 'naryn', lat: 41.81, lng: 75.13, rating: 4.7, avg: '400–800 сом', cuisine: 'Кымыз, боорсок, көк чай', address: 'Сон-Көл жайлоосу' },
+    { id: 'c10', name: 'Тоо-Таш кафе', region: 'chuy', lat: 42.575, lng: 74.485, rating: 4.4, avg: '400–900 сом', cuisine: 'Европалык жана улуттук', address: 'Ала-Арча кире бериши' },
+    { id: 'c11', name: 'Ориент Ресторан', region: 'bishkek', lat: 42.875, lng: 74.60, rating: 4.7, avg: '900–2000 сом', cuisine: 'Азия жана кыргыз ашканасы', address: 'Бишкек шаары, Манас проспекти' },
+    { id: 'c12', name: 'Талас бешбармак үйү', region: 'talas', lat: 42.525, lng: 72.24, rating: 4.5, avg: '500–1000 сом', cuisine: 'Бешбармак', address: 'Талас шаары' }
+  ],
+
+  // Такси кызматтары (mock). Телефон номерлери — үлгү.
+  taxis: {
+    osh:       [{ name: 'Ош Такси 150', rating: 4.6, phone: '+996 555 150 150', est: '150–300 сом шаар ичинде' }, { name: 'Alay Taxi', rating: 4.4, phone: '+996 700 222 333', est: '8 сом/км, түшкө чейин 100 сом' }],
+    jalalabad: [{ name: 'Жалал-Абад Такси', rating: 4.3, phone: '+996 555 400 400', est: 'Арсланбапка ~1500 сом' }, { name: 'Ореховый Трансфер', rating: 4.5, phone: '+996 770 333 444', est: 'Арсланбапка ~1800 сом' }],
+    issykkul:  [{ name: 'Көл Такси', rating: 4.5, phone: '+996 555 777 888', est: 'Чолпон-Ата → Каракол ~4500 сом' }, { name: 'Каракол Transfer', rating: 4.6, phone: '+996 700 654 321', est: 'Жети-Өгүзгө ~1200 сом' }],
+    chuy:      [{ name: 'Бишкек Такси 123', rating: 4.5, phone: '+996 555 123 123', est: 'Ала-Арчага ~900 сом' }, { name: 'Ала-Арча Transfer', rating: 4.7, phone: '+996 700 111 000', est: 'Ала-Арчага ~800 сом' }],
+    naryn:     [{ name: 'Нарын Такси', rating: 4.2, phone: '+996 555 909 090', est: 'Сон-Көлгө ~6000 сом (4x4)' }, { name: 'Сон-Көл 4x4', rating: 4.6, phone: '+996 770 808 080', est: 'Сон-Көлгө ~6500 сом (4x4)' }],
+    default:   [{ name: 'Кыргызстан Transfer', rating: 4.5, phone: '+996 555 000 111', est: '10 сом/км' }]
+  },
+
+  companies: [
+    { id: 'silk', name: 'Silk Road Kyrgyzstan', short: 'SR', color: '#0B6E4F', rating: 4.8, phone: '+996 555 321 000', whatsapp: '996555321000', address: 'Ош шаары, Ленин көчөсү 20', site: 'silkroad.demo', founded: 2012 },
+    { id: 'alatoo', name: 'Ala-Too Travel', short: 'AT', color: '#1F6F9C', rating: 4.7, phone: '+996 555 456 789', whatsapp: '996555456789', address: 'Бишкек шаары, Чүй проспекти 100', site: 'alatoo-travel.demo', founded: 2009 },
+    { id: 'nomad', name: 'Nomad Trails', short: 'NT', color: '#C97A12', rating: 4.9, phone: '+996 770 987 654', whatsapp: '996770987654', address: 'Нарын шаары, Ленин көчөсү 8', site: 'nomadtrails.demo', founded: 2017 }
+  ],
+
+  // inc: [transport, guide, hotel, food, tickets]
+  tours: [
+    { id: 't1', company: 'silk', name: 'Ош — Абшыр-Ата — Кара-Кой', region: 'osh', days: 2, price: 8500, rating: 4.8, places: ['abshir-ata', 'kara-koi'], types: ['шаркыратма', 'тоо'], theme: 'waterfall', inc: [1, 1, 1, 1, 1],
+      itinerary: [{ title: 'Ош → Абшыр-Ата', steps: ['Ош шаарынан эртең менен жөнөө', 'Абшыр-Ата шаркыратмасы', 'Мейманканага жайгашуу'] }, { title: 'Кара-Кой', steps: ['Кара-Кой өрөөнүндө жаратылыш', 'Түшкү тамак жергиликтүү үйдө', 'Ошко кайтуу'] }] },
+    { id: 't2', company: 'silk', name: 'Сулайман-Тоо жана Ош шаары', region: 'osh', days: 1, price: 3200, rating: 4.9, places: ['suleiman'], types: ['тарыхый'], theme: 'rock', inc: [1, 1, 0, 1, 1],
+      itinerary: [{ title: 'Ош шаары', steps: ['Ош базары', 'Сулайман-Тоого чыгуу', 'Тарых музейи', 'Рабат Абдуллахан мечити'] }] },
+    { id: 't3', company: 'silk', name: 'Алай өрөөнү жана Ленин чокусунун базалык лагери', region: 'osh', days: 4, price: 21000, rating: 4.8, places: ['alay', 'lenin'], types: ['тоо', 'экстремалдык'], theme: 'mountain', inc: [1, 1, 1, 1, 0],
+      itinerary: [{ title: 'Ош → Сары-Таш', steps: ['Памир тракты менен жол', 'Боз үйдө конуу'] }, { title: 'Алай өрөөнү', steps: ['Жайыт аралап сейил', 'Жергиликтүү малчылар менен тамак'] }, { title: 'Базалык лагерге жөө жүрүш', steps: ['Ленин чокусунун көрүнүшү', 'Лагерде конуу'] }, { title: 'Ошко кайтуу', steps: ['Эртең менен кайтуу', 'Кечинде Ошко жетүү'] }] },
+    { id: 't4', company: 'silk', name: 'Арсланбап: жаңгак токою жана шаркыратмалар', region: 'jalalabad', days: 2, price: 6900, rating: 4.7, places: ['arslanbap'], types: ['шаркыратма', 'эс алуу'], theme: 'waterfall', inc: [1, 1, 1, 1, 1],
+      itinerary: [{ title: 'Жалал-Абад → Арсланбап', steps: ['Жаңгак токою аркылуу сейил', 'Кичи шаркыратма'] }, { title: 'Чоң шаркыратма', steps: ['Жөө жүрүш', 'Жергиликтүү жаңгак базары', 'Кайтуу'] }] },
+    { id: 't5', company: 'alatoo', name: 'Ысык-Көлдү айланып', region: 'issykkul', days: 3, price: 14500, rating: 4.8, places: ['issykkul', 'jeti-oguz'], types: ['көл', 'эс алуу'], theme: 'lake', inc: [1, 1, 1, 1, 0],
+      itinerary: [{ title: 'Бишкек → Чолпон-Ата', steps: ['Бурана мунарасы', 'Көлдүн жээгинде түшкү тамак', 'Петроглифтер'] }, { title: 'Каракол жана Жети-Өгүз', steps: ['Кызыл аскалар', 'Ыйык Троица чиркөөсү'] }, { title: 'Кайтуу', steps: ['Түштүк жээк менен Бишкекке кайтуу'] }] },
+    { id: 't6', company: 'alatoo', name: 'Ала-Арча: бир күндүк тоо жүрүшү', region: 'chuy', days: 1, price: 2800, rating: 4.8, places: ['ala-archa'], types: ['тоо', 'экстремалдык'], theme: 'mountain', inc: [1, 1, 0, 1, 1],
+      itinerary: [{ title: 'Бишкек → Ала-Арча', steps: ['Капчыгай боюнча жөө жол', 'Шаркыратмага чыгуу', 'Пикник жана кайтуу'] }] },
+    { id: 't7', company: 'nomad', name: 'Сон-Көл жайлоосу', region: 'naryn', days: 3, price: 12000, rating: 4.9, places: ['son-kul'], types: ['көл', 'эс алуу'], theme: 'yurt', inc: [1, 1, 1, 1, 0],
+      itinerary: [{ title: 'Бишкек → Кочкор → Сон-Көл', steps: ['Кочкор айылы', 'Боз үйгө жайгашуу', 'Жылдыздуу түн'] }, { title: 'Жайлоодо бир күн', steps: ['Ат менен сейил', 'Кымыз жана боорсок', 'Малчылардын жашоосу'] }, { title: 'Кайтуу', steps: ['Көлдөн чыгуу', 'Бишкекке жетүү'] }] }
+  ],
+
+  reviews: [
+    { stars: 5, text: 'Аябай сонун сайт. Кыргызстандын кооз жерлерин бир жерден табууга болот.', author: 'Айбек, Бишкек' },
+    { stars: 5, text: 'Сулайман-Тоо тууралуу маалымат абдан пайдалуу болду.', author: 'Нурия, Ош' },
+    { stars: 5, text: 'Сон-Көлгө баруу планын түзүп бердик, мейманкана менен такси дароо табылды.', author: 'Daniel, Germany' },
+    { stars: 4, text: 'Аралыкты жана жол убактысын көрүп, бир күндүк турду тез тандадык.', author: 'Айгүл, Каракол' }
+  ]
+};
+
+const TYPES = [
+  { id: '', label: 'Баары' }, { id: 'тоо', label: 'Тоо' }, { id: 'көл', label: 'Көл' },
+  { id: 'шаркыратма', label: 'Шаркыратма' }, { id: 'тарыхый', label: 'Тарыхый жер' },
+  { id: 'эс алуу', label: 'Эс алуу' }, { id: 'экстремалдык', label: 'Экстремалдык туризм' }
+];
+const INCLUDES = ['Транспорт', 'Гид', 'Мейманкана', 'Тамактануу', 'Кирүү билеттери'];
+
+/* API катмары: азыр mock, кийин fetch('/api/...') менен алмаштырылат */
+const API = {
+  async loadAll() {
+    const d = DATA;
+    d.regions.forEach(r => { if (!r.places) r.places = d.places.filter(p => p.region === r.id).map(p => p.id); });
+    return d;
+  }
+};
+let DB = null;
+
+/* ==========================================================
+   2. УТИЛИТАЛАР
+   ========================================================== */
+const $ = (s, root = document) => root.querySelector(s);
+const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const som = n => Number(n).toLocaleString('ru-RU').replace(/\u00a0/g, ' ') + ' сом';
+const regionById = id => DB.regions.find(r => r.id === id);
+const regionName = id => (regionById(id) || {}).name || '';
+const placeById = id => DB.places.find(p => p.id === id);
+const tourById = id => DB.tours.find(t => t.id === id);
+const companyById = id => DB.companies.find(c => c.id === id);
+
+/** Haversine: эки координата ортосундагы түз аралык (км) */
+function hav(a, b) {
+  const R = 6371, rad = x => x * Math.PI / 180;
+  const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+/** Жол аралыгы жана убактысы (түз аралык × 1.35–1.5, орточо ылдамдык 55 км/саат) */
+function routeInfo(from, to) {
+  const straight = hav(from, to);
+  const km = Math.max(1, Math.round(straight * (straight < 150 ? 1.35 : 1.5)));
+  const mins = Math.round(km / 55 * 60 / 5) * 5;
+  const h = Math.floor(mins / 60), m = mins % 60;
+  const time = h ? `${h} саат${m ? ` ${m} мүнөт` : ''}` : `${m} мүнөт`;
+  return { km, mins, time };
+}
+const tokens = s => s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+/** Сөздүн башталышы боюнча издөө: «Ош» → «Ош облусу», бирок «Кошой» эмес */
+function matches(haystack, q) {
+  const words = tokens(haystack);
+  return tokens(q).every(t => words.some(w => w.startsWith(t)));
+}
+const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('is-show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('is-show'), 2600);
+}
+const scrollToId = id => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+const gmaps = p => `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}`;
+
+/* ==========================================================
+   3. ART — сүрөт жок болгондо чиймеленүүчү SVG пейзаждар
+   ========================================================== */
+const Art = (() => {
+  const cache = {};
+  const hash = s => { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const rng = seed => { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
+  const PAL = {
+    mountain: { sky: ['#8cc8e8', '#eef8f2'], layers: ['#b4cbd8', '#7aa0b5', '#3f7a68', '#0B6E4F'], sharp: true, snow: true },
+    lake:     { sky: ['#86c5e8', '#fbf3dd'], layers: ['#a5c0d0', '#6a9bb3', '#2E8B57'], water: ['#2f86b8', '#1b5f8a'], sharp: true },
+    waterfall:{ sky: ['#a9dcc8', '#effaf1'], layers: ['#7fb99a', '#3f9a6a', '#0B6E4F'], fall: true },
+    rock:     { sky: ['#f8d9a0', '#fdf3df'], layers: ['#d9a77a', '#b8704a', '#8f4f33'], sharp: true },
+    valley:   { sky: ['#9bd2ec', '#f6f1dc'], layers: ['#c0d2bd', '#8fbb8b', '#5aa06a'] },
+    yurt:     { sky: ['#8cc5ea', '#eef6ea'], layers: ['#a8c3d2', '#6fa38a', '#4d9a5d'], yurt: true, sharp: true },
+    historic: { sky: ['#f7dfae', '#fdf6e4'], layers: ['#e0c28f', '#c99a62'], dome: true },
+    city:     { sky: ['#f4c88c', '#fdf3e0'], layers: ['#d9b37c', '#b98650'], city: true },
+    hotel:    { sky: ['#cfe8f5', '#f5faf8'], layers: ['#9fc4b3', '#2E8B57'], hotel: true },
+    food:     { sky: ['#fbe3b0', '#fff6e2'], layers: ['#e7b768'], food: true }
+  };
+  function ridge(r, W, H, base, amp, steps, sharp) {
+    const pts = Array.from({ length: steps + 1 }, (_, i) => [i * W / steps, base - amp * (0.25 + 0.75 * r())]);
+    let d = `M0 ${H} L${pts[0][0]} ${pts[0][1].toFixed(1)}`;
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+      d += sharp ? ` L${x1.toFixed(1)} ${y1.toFixed(1)}` : ` Q${x0.toFixed(1)} ${y0.toFixed(1)} ${((x0 + x1) / 2).toFixed(1)} ${((y0 + y1) / 2).toFixed(1)}`;
+    }
+    return d + ` L${W} ${H}Z`;
+  }
+  function svg(theme, seed, W = 800, H = 520, big = false) {
+    const P = PAL[theme] || PAL.mountain, r = rng(hash(theme + seed));
+    let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice"><defs>
+      <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky[0]}"/><stop offset="1" stop-color="${P.sky[1]}"/></linearGradient>
+      <radialGradient id="sun"><stop offset="0" stop-color="#F4B942" stop-opacity=".95"/><stop offset="1" stop-color="#F4B942" stop-opacity="0"/></radialGradient>
+      <linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${(P.water || ['#2f86b8', '#1b5f8a'])[0]}"/><stop offset="1" stop-color="${(P.water || ['#2f86b8', '#1b5f8a'])[1]}"/></linearGradient></defs>
+      <rect width="${W}" height="${H}" fill="url(#sk)"/>`;
+    const sx = W * (0.15 + r() * 0.6), sy = H * (0.2 + r() * 0.1);
+    s += `<circle cx="${sx}" cy="${sy}" r="${H * (big ? 0.34 : 0.22)}" fill="url(#sun)"/><circle cx="${sx}" cy="${sy}" r="${H * 0.04}" fill="#F4B942"/>`;
+    if (P.food) {
+      s += `<ellipse cx="${W / 2}" cy="${H * .62}" rx="${W * .26}" ry="${H * .12}" fill="#fff"/><ellipse cx="${W / 2}" cy="${H * .6}" rx="${W * .22}" ry="${H * .09}" fill="#D9892B"/><ellipse cx="${W / 2}" cy="${H * .57}" rx="${W * .17}" ry="${H * .06}" fill="#E9A64A"/>`;
+      return s + '</svg>';
+    }
+    P.layers.forEach((c, i) => {
+      const n = P.layers.length, base = H * (0.52 + i * (0.36 / n)), amp = H * (0.4 - i * 0.07);
+      s += `<path d="${ridge(r, W, H, base, amp, 6 + i * 2, P.sharp)}" fill="${c}"/>`;
+    });
+    if (P.snow) s += `<path d="${ridge(r, W, H, H * .52, H * .4, 6, true)}" fill="none" stroke="#fff" stroke-width="3" stroke-opacity=".6" stroke-dasharray="40 90"/>`;
+    if (P.water) s += `<rect y="${H * .7}" width="${W}" height="${H * .3}" fill="url(#wt)"/>${[0, 1, 2, 3].map(i => `<rect x="${r() * W * .8}" y="${H * (.76 + i * .055)}" width="${W * .14}" height="3" rx="2" fill="#fff" opacity=".45"/>`).join('')}`;
+    if (P.fall) { const x = W * (.45 + r() * .2); s += `<rect x="${x}" y="${H * .3}" width="${W * .05}" height="${H * .55}" rx="14" fill="#fff" opacity=".85"/><ellipse cx="${x + W * .025}" cy="${H * .86}" rx="${W * .1}" ry="${H * .045}" fill="#fff" opacity=".55"/>`; }
+    if (P.yurt) { const x = W * .3; s += `<ellipse cx="${x}" cy="${H * .84}" rx="${W * .13}" ry="${H * .03}" fill="#0B6E4F" opacity=".4"/><path d="M${x - W * .1} ${H * .84}v-${H * .1}h${W * .2}v${H * .1}z" fill="#f6f1e6"/><path d="M${x - W * .11} ${H * .74}Q${x} ${H * .56} ${x + W * .11} ${H * .74}z" fill="#fff"/><path d="M${x - W * .02} ${H * .84}v-${H * .07}h${W * .04}v${H * .07}z" fill="#C97A12"/><path d="M${x - W * .1} ${H * .78}h${W * .2}" stroke="#F4B942" stroke-width="4"/>`; }
+    if (P.dome) s += `<rect x="${W * .4}" y="${H * .55}" width="${W * .2}" height="${H * .3}" fill="#f4e7c7"/><path d="M${W * .38} ${H * .55}a${W * .12} ${W * .12} 0 0 1 ${W * .24} 0z" fill="#2E8B57"/><rect x="${W * .3}" y="${H * .4}" width="${W * .03}" height="${H * .45}" fill="#f4e7c7"/><rect x="${W * .67}" y="${H * .4}" width="${W * .03}" height="${H * .45}" fill="#f4e7c7"/>`;
+    if (P.city) for (let i = 0; i < 9; i++) { const w = W * (.05 + r() * .05), h = H * (.15 + r() * .25), x = i * W / 9 + 10; s += `<rect x="${x}" y="${H - h - 30}" width="${w}" height="${h + 30}" fill="${i % 2 ? '#a77a45' : '#8d6334'}"/>`; }
+    if (P.hotel) { s += `<rect x="${W * .3}" y="${H * .38}" width="${W * .4}" height="${H * .5}" fill="#fff"/>`; for (let i = 0; i < 12; i++) s += `<rect x="${W * .33 + (i % 4) * W * .09}" y="${H * .43 + Math.floor(i / 4) * H * .13}" width="${W * .05}" height="${H * .07}" fill="${r() > .5 ? '#F4B942' : '#9fc4d8'}"/>`; s += `<rect x="${W * .3}" y="${H * .34}" width="${W * .4}" height="${H * .04}" fill="#0B6E4F"/>`; }
+    return s + '</svg>';
+  }
+  const uri = (theme, seed, W, H, big) => {
+    const k = [theme, seed, W, H].join('|');
+    return cache[k] || (cache[k] = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg(theme, seed, W, H, big)));
+  };
+  return { uri, hero: () => uri('mountain', 'hero-kg', 1600, 900, true) };
+})();
+
+/** <img> жасайт; чыныгы сүрөт жүктөлбөсө SVG fallback колдонулат */
+function imgTag(item, theme, alt) {
+  const fb = Art.uri(theme || item.theme || 'mountain', item.id);
+  const src = item.img || fb;
+  return `<img src="${src}" data-fallback="${fb}" alt="${esc(alt || item.name)}" loading="lazy">`;
+}
+document.addEventListener('error', e => {
+  const t = e.target;
+  if (t.tagName === 'IMG' && t.dataset.fallback && t.src !== t.dataset.fallback) t.src = t.dataset.fallback;
+}, true);
+
+/* ==========================================================
+   4. STATE & i18n
+   ========================================================== */
+const state = {
+  origin: DATA.cities.bishkek,
+  filters: { q: '', region: '', rating: 0, price: '', dist: '', type: '', sort: 'rating' },
+  tourFilters: { dur: '', price: '' },
+  hotelRegion: '', foodRegion: '',
+  favs: new Set(),
+  lang: 'ky',
+  tab: 'info',
+  mapSel: null
+};
+try { JSON.parse(localStorage.getItem('kgt_favs') || '[]').forEach(k => state.favs.add(k)); } catch (e) { /* localStorage жок болушу мүмкүн */ }
+const saveFavs = () => { try { localStorage.setItem('kgt_favs', JSON.stringify([...state.favs])); } catch (e) { /* ignore */ } };
+
+// Негизги UI тексттеринин котормосу (data-i18n атрибуттары боюнча)
+const I18N = {
+  ky: { nav_home: 'Башкы бет', nav_places: 'Кооз жерлер', nav_regions: 'Облустар', nav_tours: 'Турлар', nav_hotels: 'Мейманканалар', nav_food: 'Кафе & Ресторан', nav_contact: 'Байланыш', login: 'Кирүү', search_short: 'Издөө…', hero_title: 'Кыргызстанды кыдыр — унутулгус саякатты башта!', hero_sub: 'Кыргызстандын эң кооз жерлерин, мейманканаларын, ресторандарын жана туристтик турларды бир жерден тап.', hero_ph: 'Кайда баргыңыз келет?', search_btn: 'Издөө', places_title: 'Кыргызстандын популярдуу жерлери', regions_title: 'Кыргызстандын облустарын изилде', tours_title: 'Тур компаниялар жана турлар', hotels_title: 'Мейманканалар', food_title: 'Кафе & Ресторан', map_title: 'Картадан изилде', planner_title: 'Саякатыңызды пландаңыз', reviews_title: 'Туристтердин пикирлери' },
+  ru: { nav_home: 'Главная', nav_places: 'Места', nav_regions: 'Области', nav_tours: 'Туры', nav_hotels: 'Отели', nav_food: 'Кафе и рестораны', nav_contact: 'Контакты', login: 'Войти', search_short: 'Поиск…', hero_title: 'Откройте Кыргызстан — начните незабываемое путешествие!', hero_sub: 'Самые красивые места, отели, рестораны и туры Кыргызстана — в одном месте.', hero_ph: 'Куда хотите поехать?', search_btn: 'Найти', places_title: 'Популярные места Кыргызстана', regions_title: 'Исследуйте области Кыргызстана', tours_title: 'Турфирмы и туры', hotels_title: 'Отели', food_title: 'Кафе и рестораны', map_title: 'Исследуйте на карте', planner_title: 'Спланируйте поездку', reviews_title: 'Отзывы туристов' },
+  en: { nav_home: 'Home', nav_places: 'Places', nav_regions: 'Regions', nav_tours: 'Tours', nav_hotels: 'Hotels', nav_food: 'Cafes & Restaurants', nav_contact: 'Contact', login: 'Sign in', search_short: 'Search…', hero_title: 'Explore Kyrgyzstan — start an unforgettable journey!', hero_sub: 'Find the most beautiful places, hotels, restaurants and tours of Kyrgyzstan in one place.', hero_ph: 'Where do you want to go?', search_btn: 'Search', places_title: 'Popular places in Kyrgyzstan', regions_title: 'Explore the regions of Kyrgyzstan', tours_title: 'Tour companies & tours', hotels_title: 'Hotels', food_title: 'Cafes & Restaurants', map_title: 'Explore on the map', planner_title: 'Plan your trip', reviews_title: 'Traveler reviews' }
+};
+function applyLang(lang) {
+  state.lang = lang;
+  document.documentElement.lang = lang === 'ky' ? 'ky' : lang;
+  $$('[data-i18n]').forEach(el => { el.textContent = I18N[lang][el.dataset.i18n]; });
+  $$('[data-i18n-ph]').forEach(el => { el.placeholder = I18N[lang][el.dataset.i18nPh]; });
+  $$('.lang button').forEach(b => b.classList.toggle('is-active', b.dataset.lang === lang));
+}
+
+/* ==========================================================
+   5. RENDERERS
+   ========================================================== */
+const favBtn = (type, id) => {
+  const on = state.favs.has(`${type}:${id}`);
+  return `<button class="fav ${on ? 'is-on' : ''}" data-action="fav" data-key="${type}:${id}" aria-label="Тандалмага кошуу" aria-pressed="${on}">${on ? '♥' : '♡'}</button>`;
+};
+const priceLabel = p => p.price ? som(p.price) : 'Акысыз';
+
+function placeCard(p) {
+  const r = routeInfo(state.origin, p);
+  return `<article class="card" data-action="open-place" data-id="${p.id}">
+    <div class="card__media">${imgTag(p)}<span class="chip chip--float">${esc(regionName(p.region))}</span>${favBtn('place', p.id)}</div>
+    <div class="card__body">
+      <div class="card__row"><h3>${esc(p.name)}</h3><span class="rating">⭐ ${p.rating.toFixed(1)}</span></div>
+      <p class="muted">${esc(p.short)}</p>
+      <div class="meta"><span>📏 ${r.km} км</span><span>⏱ ${r.time}</span><span>💰 ${priceLabel(p)}</span></div>
+      <button class="btn btn--ghost btn--sm" data-action="open-place" data-id="${p.id}">Толук маалымат</button>
+    </div></article>`;
+}
+
+function filteredPlaces() {
+  const f = state.filters;
+  const list = DB.places.filter(p => {
+    if (f.q && !matches([p.name, regionName(p.region), p.location, p.short, p.types.join(' ')].join(' '), f.q)) return false;
+    if (f.region && !regionById(f.region).places.includes(p.id)) return false;
+    if (f.rating && p.rating < f.rating) return false;
+    if (f.price === 'free' && p.price !== 0) return false;
+    if (f.price === 'low' && !(p.price > 0 && p.price <= 200)) return false;
+    if (f.price === 'high' && p.price <= 200) return false;
+    if (f.dist && routeInfo(state.origin, p).km > Number(f.dist)) return false;
+    if (f.type && !p.types.includes(f.type)) return false;
+    return true;
+  });
+  const by = { rating: (a, b) => b.rating - a.rating, name: (a, b) => a.name.localeCompare(b.name, 'ru'), dist: (a, b) => routeInfo(state.origin, a).km - routeInfo(state.origin, b).km };
+  return list.sort(by[f.sort]);
+}
+
+function renderPlaces() {
+  const list = filteredPlaces();
+  $('#placesGrid').innerHTML = list.length ? list.map(placeCard).join('')
+    : `<div class="empty"><p>Эч нерсе табылган жок. Башка сөз же фильтр байкап көрүңүз.</p></div>`;
+  $('#resultCount').textContent = `${list.length} жер табылды · жайгашкан жер: ${state.origin.name}`;
+  renderTours();
+}
+
+function renderRegions() {
+  $('#regionsGrid').innerHTML = DB.regions.map(r => {
+    const names = r.places.map(id => placeById(id).name);
+    return `<article class="card region-card">
+      <div class="region-card__bar"></div>
+      <h3>${esc(r.name.toUpperCase())}</h3>
+      <p class="muted">${esc(r.desc)}</p>
+      <div><div class="label">Популярдуу жерлер:</div>
+      <ul>${names.length ? names.map(n => `<li class="chip">${esc(n)}</li>`).join('') : '<li class="muted">Жакында кошулат</li>'}</ul></div>
+      <button class="btn btn--sm" data-action="open-region" data-id="${r.id}">${esc(r.name)} көрүү</button></article>`;
+  }).join('');
+}
+
+function tourCard(t) {
+  const flags = INCLUDES.map((l, i) => `<span class="${t.inc[i] ? 'yes' : 'no'}">${t.inc[i] ? '✓' : '✕'} ${l}</span>`).join('');
+  return `<article class="tour-card">
+    ${favBtn('tour', t.id)}
+    <h4>${esc(t.name)}</h4>
+    <div class="meta"><span>⏱ ${t.days} күн${t.days > 1 ? ` / ${t.days - 1} түн` : ''}</span><span class="rating">⭐ ${t.rating.toFixed(1)}</span></div>
+    <div class="price">${som(t.price)} / адам</div>
+    <div class="inc">${flags}<span class="no">✕ Жеке чыгымдар</span></div>
+    <button class="btn btn--sm" data-action="open-tour" data-id="${t.id}">Турду көрүү</button></article>`;
+}
+
+function filteredTours() {
+  const f = state.filters, tf = state.tourFilters;
+  return DB.tours.filter(t => {
+    const pl = t.places.map(placeById);
+    if (f.q && !matches([t.name, regionName(t.region), companyById(t.company).name, ...pl.map(p => p.name + ' ' + p.location)].join(' '), f.q)) return false;
+    if (f.region && !(t.region === f.region || regionById(f.region).places.some(id => t.places.includes(id)))) return false;
+    if (f.rating && t.rating < f.rating) return false;
+    if (f.type && !t.types.includes(f.type)) return false;
+    if (tf.dur === '1' && t.days !== 1) return false;
+    if (tf.dur === '2-3' && !(t.days >= 2 && t.days <= 3)) return false;
+    if (tf.dur === '4+' && t.days < 4) return false;
+    if (tf.price === '0-5000' && t.price > 5000) return false;
+    if (tf.price === '5000-10000' && !(t.price > 5000 && t.price <= 10000)) return false;
+    if (tf.price === '10000+' && t.price <= 10000) return false;
+    return true;
+  });
+}
+
+function renderTours() {
+  const tours = filteredTours();
+  const box = $('#companies');
+  const blocks = DB.companies.map(c => {
+    const list = tours.filter(t => t.company === c.id);
+    if (!list.length) return '';
+    const years = new Date().getFullYear() - c.founded;
+    return `<article class="company">
+      <div class="company__head">
+        <div class="company__logo" style="background:${c.color}" aria-hidden="true">${c.short}</div>
+        <div><h3>${esc(c.name)} <span class="rating">⭐ ${c.rating.toFixed(1)}</span></h3>
+          <div class="company__info"><span>📍 ${esc(c.address)}</span><span>📞 ${c.phone}</span><a href="https://${c.site}" target="_blank" rel="noopener">🌐 ${c.site}</a><span>🗓 ${years} жылдан бери иштейт</span></div></div>
+        <div class="company__actions"><a class="btn btn--sm btn--ghost" href="tel:${c.phone.replace(/\s/g, '')}">Чалуу</a><a class="btn btn--sm btn--wa" href="https://wa.me/${c.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></div>
+      </div>
+      <div class="company__tours">${list.map(tourCard).join('')}</div></article>`;
+  }).join('');
+  box.innerHTML = blocks || `<div class="empty"><p>Бул фильтрлер боюнча тур табылган жок.</p></div>`;
+  const active = [state.filters.q && `«${esc(state.filters.q)}»`, state.filters.region && regionName(state.filters.region), state.filters.type].filter(Boolean);
+  $('#toursNote').innerHTML = active.length ? `Издөө жана жогорку фильтрлер колдонулду: ${active.join(', ')}.` : 'Ишенимдүү компаниялардын даяр турлары.';
+}
+
+function hotelCard(h, ref) {
+  const d = ref ? hav(ref, h).toFixed(1) : routeInfo(state.origin, h).km;
+  return `<article class="card">
+    <div class="card__media">${imgTag(h, 'hotel')}${favBtn('hotel', h.id)}</div>
+    <div class="card__body">
+      <div class="card__row"><h3>${esc(h.name)}</h3><span class="rating">⭐ ${h.rating}</span></div>
+      <div class="price">${som(h.price)} / түн</div>
+      <div class="meta"><span>📍 ${esc(h.address)}</span></div>
+      <div class="meta"><span>📏 ${ref ? `Аралык: ${d} км` : `Сизден ~${d} км`}</span></div>
+      <button class="btn btn--ghost btn--sm" data-action="room" data-id="${h.id}">Бөлмөнү көрүү</button>
+    </div></article>`;
+}
+function cafeCard(c, ref) {
+  const d = ref ? hav(ref, c).toFixed(1) : routeInfo(state.origin, c).km;
+  return `<article class="card">
+    <div class="card__media">${imgTag(c, 'food')}${favBtn('cafe', c.id)}</div>
+    <div class="card__body">
+      <div class="card__row"><h3>${esc(c.name)}</h3><span class="rating">⭐ ${c.rating}</span></div>
+      <div class="meta"><span>🍽 ${esc(c.cuisine)}</span></div>
+      <div class="meta"><span>💰 Орточо чек: ${c.avg}</span></div>
+      <div class="meta"><span>📍 ${esc(c.address)}</span><span>📏 ${ref ? `Аралык: ${d} км` : `Сизден ~${d} км`}</span></div>
+    </div></article>`;
+}
+function renderHotelsFood() {
+  const hs = DB.hotels.filter(h => !state.hotelRegion || h.region === state.hotelRegion).sort((a, b) => b.rating - a.rating).slice(0, 9);
+  $('#hotelsGrid').innerHTML = hs.map(h => hotelCard(h)).join('') || '<div class="empty"><p>Бул облус үчүн мейманкана жок.</p></div>';
+  const cs = DB.cafes.filter(c => !state.foodRegion || c.region === state.foodRegion).sort((a, b) => b.rating - a.rating).slice(0, 9);
+  $('#foodGrid').innerHTML = cs.map(c => cafeCard(c)).join('') || '<div class="empty"><p>Бул облус үчүн кафе жок.</p></div>';
+}
+
+function renderReviews() {
+  $('#reviewsGrid').innerHTML = DB.reviews.map(r => `<article class="review"><div class="stars" aria-label="${r.stars} жылдыз">${stars(r.stars)}</div><blockquote>“${esc(r.text)}”</blockquote><cite>— ${esc(r.author)}</cite></article>`).join('');
+}
+
+function updateFavCount() { $('#favCount').textContent = state.favs.size; }
+
+/* ==========================================================
+   6. MODAL
+   ========================================================== */
+const Modal = {
+  stack: [], lastFocus: null,
+  open(view, opts = {}) { if (!this.stack.length) this.lastFocus = document.activeElement; this.stack.push({ view, opts }); this.render(); $('#modal').hidden = false; document.body.classList.add('no-scroll'); },
+  render() {
+    const { view, opts } = this.stack[this.stack.length - 1];
+    const dlg = $('.modal__dialog'), top = dlg.scrollTop;
+    dlg.classList.toggle('modal__dialog--narrow', !!opts.narrow);
+    $('#modalBody').innerHTML = (this.stack.length > 1 ? '<button class="modal__back" data-action="modal-back" aria-label="Артка">←</button>' : '') + view();
+    dlg.scrollTop = opts.keepScroll ? top : 0; dlg.focus({ preventScroll: true });
+  },
+  refresh() { const dlg = $('.modal__dialog'), top = dlg.scrollTop; const { view } = this.stack[this.stack.length - 1]; $('#modalBody').innerHTML = (this.stack.length > 1 ? '<button class="modal__back" data-action="modal-back" aria-label="Артка">←</button>' : '') + view(); dlg.scrollTop = top; },
+  back() { this.stack.pop(); this.stack.length ? this.render() : this.close(); },
+  close() { this.stack = []; $('#modal').hidden = true; document.body.classList.remove('no-scroll'); if (this.lastFocus) this.lastFocus.focus?.(); }
+};
+
+/* ----- 4. Place detail ----- */
+const TABS = [['info', 'Жалпы маалымат'], ['hotels', 'Мейманканалар'], ['food', 'Кафе & ресторандар'], ['taxi', 'Такси'], ['tours', 'Турлар'], ['nearby', 'Жакын жерлер']];
+
+function openPlace(id) { state.tab = 'info'; Modal.open(() => placeView(id)); }
+
+function placeView(id) {
+  const p = placeById(id), r = routeInfo(state.origin, p);
+  const tabs = TABS.map(([k, l]) => `<button class="${state.tab === k ? 'is-active' : ''}" data-action="tab" data-tab="${k}" role="tab" aria-selected="${state.tab === k}">${l}</button>`).join('');
+  return `<div class="m-hero">${imgTag(p)}<div class="m-hero__text"><h2 id="modalTitle">${esc(p.name.toUpperCase())}</h2><span class="rating">⭐ ${p.rating.toFixed(1)} / 5</span></div></div>
+  <div class="m-body"><div class="tabs" role="tablist">${tabs}</div><div id="tabBody">${placeTab(p, r)}</div></div>`;
+}
+
+function placeTab(p, r) {
+  const ref = p;
+  switch (state.tab) {
+    case 'hotels': {
+      let list = DB.hotels.map(h => ({ h, d: hav(ref, h) })).sort((a, b) => a.d - b.d);
+      const near = list.filter(x => x.d <= 80).slice(0, 4); if (!near.length) list = list.slice(0, 2); else list = near;
+      return `<h3 class="m-title">${esc(p.name)} жанындагы мейманканалар</h3><div class="mini-grid">${list.map(x => hotelCard(x.h, ref)).join('')}</div>`;
+    }
+    case 'food': {
+      let list = DB.cafes.map(c => ({ c, d: hav(ref, c) })).sort((a, b) => a.d - b.d);
+      const near = list.filter(x => x.d <= 80).slice(0, 4); list = near.length ? near : list.slice(0, 2);
+      return `<h3 class="m-title">${esc(p.name)} жанындагы кафе жана ресторандар</h3><div class="mini-grid">${list.map(x => cafeCard(x.c, ref)).join('')}</div>`;
+    }
+    case 'taxi': {
+      const list = DB.taxis[p.region] || DB.taxis.default;
+      return `<h3 class="m-title">Жакын жердеги такси кызматтары</h3><div class="mini-grid">${list.map((t, i) => `
+        <article class="mini"><div class="card__body"><div class="card__row"><h4>🚕 ${esc(t.name)}</h4><span class="rating">⭐ ${t.rating}</span></div>
+        <p>📞 ${t.phone}</p><p>💰 ${esc(t.est)}</p>
+        <div class="m-actions" style="margin-top:6px"><a class="btn btn--sm btn--ghost" href="tel:${t.phone.replace(/\s/g, '')}">Чалуу</a><button class="btn btn--sm" data-action="order-taxi" data-name="${esc(t.name)}">Заказ кылуу</button></div></div></article>`).join('')}</div>
+        <p class="muted" style="margin-top:14px">Телефон номерлери жана баалар — demo маалымат.</p>`;
+    }
+    case 'tours': {
+      const list = DB.tours.filter(t => t.places.includes(p.id) || t.region === p.region);
+      return `<h3 class="m-title">${esc(p.name)} боюнча турлар</h3>` + (list.length ? `<div class="mini-grid">${list.map(t => tourCard(t)).join('')}</div>` : '<div class="empty"><p>Азырынча тур жок.</p></div>');
+    }
+    case 'nearby': {
+      const items = [...DB.spots.map(s => ({ ...s, kind: 'spot' })), ...DB.places.filter(x => x.id !== p.id).map(x => ({ ...x, kind: 'place' }))]
+        .map(x => ({ x, d: hav(ref, x) })).filter(o => o.d <= 220).sort((a, b) => a.d - b.d).slice(0, 6);
+      return `<h3 class="m-title">${esc(p.name)} жанындагы жерлер</h3><div class="mini-grid">${items.map(({ x, d }) => `
+        <article class="mini"><div class="card__media">${imgTag(x, x.theme)}</div><div class="card__body"><h4>${esc(x.name)}</h4><p>${esc(x.short)}</p>
+        <div class="meta"><span>📏 ${d < 10 ? d.toFixed(1) : Math.round(d)} км</span></div>
+        <button class="btn btn--sm" data-action="${x.kind === 'place' ? 'open-place' : 'goto-spot'}" data-id="${x.id}">Баруу</button></div></article>`).join('')}</div>`;
+    }
+    default:
+      return `<p>${esc(p.desc)}</p>
+      <div class="stats">
+        <div class="stat"><small>📍 Жайгашкан жери</small><b>${esc(p.location)}</b></div>
+        <div class="stat"><small>📏 Колдонуучудан аралык</small><b>Сиздин жайгашкан жериңизден (${esc(state.origin.name)}) ${r.km} км</b></div>
+        <div class="stat"><small>⏱ Болжолдуу жол убактысы</small><b>${r.time}</b></div>
+        <div class="stat"><small>💰 Кирүү баасы</small><b>${priceLabel(p)}</b></div>
+        <div class="stat"><small>🗓 Эң жакшы убакыт</small><b>${esc(p.best)}</b></div>
+        <div class="stat"><small>🏷 Түрү</small><b>${p.types.join(', ')}</b></div>
+      </div>
+      <div class="m-actions"><button class="btn" data-action="show-on-map" data-id="${p.id}">📍 Картадан көрүү</button><a class="btn btn--ghost" href="${gmaps(p)}" target="_blank" rel="noopener">Google Maps’те ачуу</a><button class="btn btn--accent" data-action="plan-here" data-id="${p.id}">Ушул жерге план түзүү</button></div>`;
+  }
+}
+
+/* ----- 10. Region detail ----- */
+const regionUI = { id: null, type: '' };
+function openRegion(id) { regionUI.id = id; regionUI.type = ''; Modal.open(regionView); }
+function regionView() {
+  const r = regionById(regionUI.id);
+  const list = r.places.map(placeById).filter(p => !regionUI.type || p.types.includes(regionUI.type));
+  const chips = TYPES.map(t => `<button class="${regionUI.type === t.id ? 'is-active' : ''}" data-action="region-type" data-type="${t.id}">${t.label}</button>`).join('');
+  return `<div class="m-simple"><h2 id="modalTitle" style="font-size:2rem;font-weight:800">${esc(r.name.toUpperCase())}</h2><p class="muted" style="margin:8px 0 20px">${esc(r.desc)}</p>
+    <h3 class="m-title">Popular destinations</h3><div class="chips" style="margin-bottom:20px">${chips}</div>
+    <div class="mini-grid">${list.length ? list.map(p => { const rt = routeInfo(state.origin, p); return `<article class="mini" data-action="open-place" data-id="${p.id}" style="cursor:pointer"><div class="card__media">${imgTag(p)}</div><div class="card__body"><div class="card__row"><h4>${esc(p.name)}</h4><span class="rating">⭐ ${p.rating}</span></div><p>${esc(p.short)}</p><div class="meta"><span>📏 ${rt.km} км</span><span>⏱ ${rt.time}</span></div><button class="btn btn--sm" data-action="open-place" data-id="${p.id}">Толук маалымат</button></div></article>`; }).join('') : '<div class="empty"><p>Бул тип боюнча жер табылган жок.</p></div>'}</div></div>`;
+}
+
+/* ----- 12. Tour detail ----- */
+function openTour(id) { Modal.open(() => tourView(id)); }
+function tourView(id) {
+  const t = tourById(id), c = companyById(t.company);
+  const pl = t.places.map(placeById);
+  return `<div class="m-hero">${imgTag(t, t.theme)}<div class="m-hero__text"><h2 id="modalTitle">${esc(t.name)}</h2><span class="rating">⭐ ${t.rating.toFixed(1)} · ${t.days} күн · ${som(t.price)}</span></div></div>
+  <div class="m-body">
+    <div class="stats">
+      <div class="stat"><small>🏢 Компания</small><b>${esc(c.name)}</b></div>
+      <div class="stat"><small>⏱ Узактыгы</small><b>${t.days} күн${t.days > 1 ? ` / ${t.days - 1} түн` : ''}</b></div>
+      <div class="stat"><small>💰 Баасы</small><b>${som(t.price)} / адам</b></div>
+    </div>
+    <h3 class="m-title">Кайсы жерлерге барат</h3>
+    <div class="chips" style="margin-bottom:22px">${pl.map(p => `<button data-action="open-place" data-id="${p.id}">${esc(p.name)}</button>`).join('')}</div>
+    <h3 class="m-title">Программа</h3>
+    <div class="timeline">${t.itinerary.map((d, i) => `<div><h4>${i + 1}-КҮН · ${esc(d.title)}</h4><ul>${d.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="inc" style="margin:22px 0;font-size:.95rem">${INCLUDES.map((l, i) => `<span class="${t.inc[i] ? 'yes' : 'no'}">${t.inc[i] ? '✓' : '✕'} ${l}</span>`).join('')}<span class="no">✕ Жеке чыгымдар</span></div>
+    <div class="m-actions"><button class="btn" data-action="order-tour" data-id="${t.id}">Турга заказ берүү · ${som(t.price)}</button><a class="btn btn--ghost" href="tel:${c.phone.replace(/\s/g, '')}">Компанияга чалуу</a></div>
+  </div>`;
+}
+
+/* ----- Заказ / кирүү / тандалмалар / бөлмө ----- */
+function orderView({ title, sub, price, onDone }) {
+  return () => `<div class="m-simple"><h2 id="modalTitle" style="font-size:1.5rem;font-weight:800">${esc(title)}</h2><p class="muted">${esc(sub)}</p>
+    <form class="form" id="orderForm"><label class="field"><span>Атыңыз</span><input name="name" required></label>
+    <div class="two"><label class="field"><span>Телефон</span><input name="phone" type="tel" placeholder="+996 ..." required></label>
+    <label class="field"><span>Күнү</span><input name="date" type="date" required min="${new Date().toISOString().slice(0, 10)}"></label></div>
+    <label class="field"><span>Адамдын саны</span><input name="people" type="number" min="1" max="20" value="2" required></label>
+    ${price ? `<p class="price" id="orderTotal">Жалпы: ${som(price * 2)}</p>` : ''}
+    <button class="btn" type="submit">Заказды жиберүү</button></form></div>`;
+}
+function showSuccess(text) {
+  Modal.stack[Modal.stack.length - 1] = { view: () => `<div class="m-simple success"><div class="tick">✓</div><h2 id="modalTitle" style="font-size:1.5rem">Рахмат!</h2><p class="muted" style="margin:8px 0 20px">${esc(text)}</p><button class="btn" data-action="close-modal">Жабуу</button></div>`, opts: { narrow: true } };
+  Modal.render();
+}
+function openOrder(cfg) {
+  Modal.open(orderView(cfg), { narrow: true });
+  const form = $('#orderForm');
+  const total = $('#orderTotal');
+  if (total) form.elements.people.addEventListener('input', e => { total.textContent = `Жалпы: ${som(cfg.price * Math.max(1, Number(e.target.value) || 1))}`; });
+  form.addEventListener('submit', e => { e.preventDefault(); showSuccess(cfg.done(Object.fromEntries(new FormData(form)))); });
+}
+function openLogin() {
+  Modal.open(() => `<div class="m-simple"><h2 id="modalTitle" style="font-size:1.5rem;font-weight:800">Кирүү</h2><p class="muted">Demo версия: чыныгы аккаунт талап кылынбайт.</p>
+    <form class="form" id="loginForm"><label class="field"><span>Электрондук почта</span><input type="email" required></label><label class="field"><span>Сырсөз</span><input type="password" required minlength="4"></label><button class="btn" type="submit">Кирүү</button></form></div>`, { narrow: true });
+  $('#loginForm').addEventListener('submit', e => { e.preventDefault(); Modal.close(); toast('Кош келиңиз! (demo)'); });
+}
+function openFavs() {
+  Modal.open(() => {
+    const keys = [...state.favs]; const parts = { place: [], tour: [], hotel: [], cafe: [] };
+    keys.forEach(k => { const [t, id] = k.split(':'); (parts[t] || []).push(id); });
+    const names = [];
+    parts.place.forEach(id => { const p = placeById(id); p && names.push(`<button data-action="open-place" data-id="${p.id}">📍 ${esc(p.name)}</button>`); });
+    parts.tour.forEach(id => { const t = tourById(id); t && names.push(`<button data-action="open-tour" data-id="${t.id}">🧭 ${esc(t.name)}</button>`); });
+    parts.hotel.forEach(id => { const h = DB.hotels.find(x => x.id === id); h && names.push(`<button data-action="room" data-id="${h.id}">🏨 ${esc(h.name)}</button>`); });
+    parts.cafe.forEach(id => { const c = DB.cafes.find(x => x.id === id); c && names.push(`<span class="chip">🍽 ${esc(c.name)}</span>`); });
+    return `<div class="m-simple"><h2 id="modalTitle" style="font-size:1.5rem;font-weight:800">Тандалмалар ♥</h2><div class="chips" style="margin-top:18px">${names.join('') || '<p class="muted">Азырынча бош. Карточкадагы ♡ белгисин басыңыз.</p>'}</div></div>`;
+  }, { narrow: true });
+}
+function openRoom(id) {
+  const h = DB.hotels.find(x => x.id === id);
+  const rooms = [['Стандарт', 1, '2 адамга, терезеден тоо көрүнүшү'], ['Люкс', 1.7, 'Кең бөлмө, балкон, эртең мененки тамак'], ['Үй-бүлөлүк', 2.2, '4 адамга чейин, эки уктоочу бөлмө']];
+  Modal.open(() => `<div class="m-hero" style="height:220px">${imgTag(h, 'hotel')}<div class="m-hero__text"><h2 id="modalTitle" style="font-size:1.7rem">${esc(h.name)}</h2><span class="rating">⭐ ${h.rating}</span></div></div>
+    <div class="m-body"><p class="muted" style="margin-bottom:16px">📍 ${esc(h.address)}</p><div class="mini-grid">${rooms.map(([n, k, d]) => `<article class="mini"><div class="card__body"><h4>${n}</h4><p>${d}</p><div class="price">${som(Math.round(h.price * k / 50) * 50)} / түн</div><button class="btn btn--sm" data-action="book-room" data-name="${esc(h.name)}">Брондоо</button></div></article>`).join('')}</div></div>`);
+}
+
+/* ==========================================================
+   7. MAP (placeholder, Google Maps/Leaflet'ке оңой алмаштырылат)
+   ========================================================== */
+/* MapProvider интерфейси: mount(container, places, onSelect) жана focus(id).
+   Google Maps кошуу үчүн ушул объекттин ичин гана алмаштырыңыз. */
+const MapProvider = {
+  name: 'placeholder',
+  W: 1000, H: 400, B: { w: 69.0, e: 80.5, n: 43.6, s: 39.0 },
+  OUTLINE: [[69.3, 41.9], [70.4, 42.5], [71.4, 42.8], [73.4, 42.5], [74.5, 43.2], [76.5, 42.95], [78.5, 42.9], [80.2, 42.2], [80.2, 41.8], [78.2, 41.4], [77.6, 41.0], [76.0, 40.4], [75.0, 40.4], [74.0, 39.8], [73.6, 39.4], [72.6, 39.4], [71.7, 39.3], [70.5, 39.6], [69.5, 39.55], [70.4, 40.2], [71.0, 40.2], [71.6, 40.3], [72.3, 40.0], [71.8, 40.9], [70.9, 41.3], [69.8, 41.6]],
+  xy(p) { const { w, e, n, s } = this.B; return [(p.lng - w) / (e - w) * this.W, (n - p.lat) / (n - s) * this.H]; },
+  mount(el, places, onSelect) {
+    this.el = el;
+    const land = this.OUTLINE.map(([lng, lat]) => this.xy({ lat, lng }).map(v => v.toFixed(1)).join(',')).join(' ');
+    const pins = places.map(p => { const [x, y] = this.xy(p); const lx = x > this.W * .78 ? -14 : 14, anchor = x > this.W * .78 ? 'end' : 'start';
+      return `<g class="pin" data-id="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)}"><circle cx="${x}" cy="${y}" r="9"/><text x="${x + lx}" y="${y + 5}" text-anchor="${anchor}">${esc(p.name)}</text></g>`; }).join('');
+    el.innerHTML = `<svg viewBox="0 0 ${this.W} ${this.H}" aria-hidden="false"><polygon class="land" points="${land}"/>${pins}</svg>`;
+    const pick = e => { const g = e.target.closest('.pin'); if (g) onSelect(g.dataset.id); };
+    el.addEventListener('click', pick); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e); } });
+  },
+  focus(id) { $$('.pin', this.el).forEach(g => g.classList.toggle('is-active', g.dataset.id === id)); }
+};
+
+function renderMapSide() {
+  const sel = state.mapSel && placeById(state.mapSel);
+  const detail = sel ? `<div class="map__detail"><h3>${esc(sel.name)}</h3><p class="muted">${esc(sel.short)}</p><div class="meta"><span>📏 ${routeInfo(state.origin, sel).km} км</span><span>⭐ ${sel.rating}</span></div><div class="m-actions" style="margin:0"><button class="btn btn--sm" data-action="open-place" data-id="${sel.id}">Толук маалымат</button><a class="btn btn--sm btn--ghost" href="${gmaps(sel)}" target="_blank" rel="noopener">Google Maps</a></div></div>` : `<div class="map__detail"><p class="muted">Картадагы 📍 маркерди же төмөнкү тизмедеги жерди басыңыз.</p></div>`;
+  $('#mapSide').innerHTML = detail + DB.places.slice(0, 6).map(p => `<button class="map__item ${p.id === state.mapSel ? 'is-active' : ''}" data-action="map-select" data-id="${p.id}">${imgTag(p)}<span><b>📍 ${esc(p.name)}</b><small>${esc(regionName(p.region))}</small></span></button>`).join('');
+}
+function selectOnMap(id) { state.mapSel = id; MapProvider.focus(id); renderMapSide(); }
+
+/* ==========================================================
+   8. PLANNER
+   ========================================================== */
+function buildPlan({ from, to, days, budget }) {
+  const origin = DB_CITIES()[from], region = regionById(to);
+  let cand = region.places.map(placeById);
+  const extra = DB.places.filter(p => !cand.includes(p)).map(p => ({ p, d: hav(region, p) })).filter(o => o.d < 120).sort((a, b) => a.d - b.d).map(o => o.p);
+  cand = [...cand, ...extra].slice(0, Math.max(1, Math.min(days * 2, 8)));
+  // жакын жерлерди ырааттуу иреттөө (nearest neighbour)
+  const ordered = []; let cur = region, pool = [...cand];
+  while (pool.length) { pool.sort((a, b) => hav(cur, a) - hav(cur, b)); cur = pool.shift(); ordered.push(cur); }
+  const per = Math.max(1, Math.ceil(ordered.length / days));
+  const plan = Array.from({ length: days }, (_, i) => ({ items: ordered.slice(i * per, i * per + per).map(p => p.name), places: ordered.slice(i * per, i * per + per) }));
+  const trip = routeInfo(origin, region);
+  const regionCity = region.name.replace(/ облусу| шаары/g, '');
+  plan[0].lead = `${origin.name} → ${regionCity} (~${trip.km} км, ${trip.time})`;
+  plan[days - 1].tail = days > 1 ? `${regionCity} → ${origin.name} кайтуу` : `${origin.name} шаарына кайтуу`;
+  plan.forEach((d, i) => { if (!d.items.length) d.items = ['Эс алуу күнү: жергиликтүү базар, ашкана жана сейил']; });
+  const anchor = ordered[0] || region;
+  const hotel = DB.hotels.map(h => ({ h, d: hav(anchor, h) })).sort((a, b) => a.d - b.d)[0].h;
+  const cafe = DB.cafes.map(c => ({ c, d: hav(anchor, c) })).sort((a, b) => a.d - b.d)[0].c;
+  const costs = {
+    transport: trip.km * 2 * 5,
+    hotel: (days - 1) * hotel.price,
+    food: days * 1000,
+    tickets: plan.reduce((s, d) => s + d.places.reduce((a, p) => a + p.price, 0), 0)
+  };
+  const total = Object.values(costs).reduce((a, b) => a + b, 0);
+  return { plan, costs, total, hotel, cafe, budget, ok: total <= budget };
+}
+const DB_CITIES = () => DATA.cities;
+
+function renderPlan(res, form) {
+  const days = res.plan.map((d, i) => `<div class="plan-day"><b>${i + 1}-күн:</b><ul>${d.lead ? `<li>🚗 ${esc(d.lead)}</li>` : ''}${d.items.map(x => `<li>📍 ${esc(x)}</li>`).join('')}${d.tail ? `<li>🏁 ${esc(d.tail)}</li>` : ''}</ul></div>`).join('');
+  const c = res.costs;
+  $('#plannerResult').innerHTML = `<h3 class="m-title">Сунушталган маршрут</h3>${days}
+    <div class="plan-sum"><div class="stat"><small>🚗 Транспорт</small><b>${som(c.transport)}</b></div><div class="stat"><small>🏨 Түнөө</small><b>${som(c.hotel)}</b></div><div class="stat"><small>🍽 Тамак</small><b>${som(c.food)}</b></div><div class="stat"><small>🎫 Билеттер</small><b>${som(c.tickets)}</b></div></div>
+    <div class="plan-note ${res.ok ? 'ok' : 'warn'}">${res.ok ? `Болжолдуу чыгым ${som(res.total)} — бюджетке батат (${som(res.budget - res.total)} калат).` : `Болжолдуу чыгым ${som(res.total)} — бюджеттен ${som(res.total - res.budget)} ашат. Күндөрдү азайтыңыз же арзаныраак мейманкана тандаңыз.`}</div>
+    <p class="muted" style="margin-top:12px">Мейманкана: <b>${esc(res.hotel.name)}</b> (${som(res.hotel.price)} / түн) · Кафе: <b>${esc(res.cafe.name)}</b>. Баардык баалар — болжол.</p>`;
+}
+
+/* ==========================================================
+   9. EVENTS & INIT
+   ========================================================== */
+function fillSelect(sel, options, value) { sel.innerHTML = options.map(([v, l]) => `<option value="${v}">${l}</option>`).join(''); if (value !== undefined) sel.value = value; }
+
+function runSearch(q, { scroll = true } = {}) {
+  state.filters.q = q.trim();
+  $('#fQuery').value = state.filters.q; $('#heroInput').value = state.filters.q; $('#headerSearch').value = state.filters.q;
+  $('#suggest').hidden = true;
+  renderPlaces();
+  if (scroll) scrollToId('places');
+}
+
+function renderSuggest(q) {
+  const box = $('#suggest');
+  if (!q.trim()) { box.hidden = true; return; }
+  const items = [
+    ...DB.places.filter(p => matches(p.name + ' ' + regionName(p.region) + ' ' + p.location, q)).map(p => ({ t: p.name, s: regionName(p.region), q: p.name })),
+    ...DB.regions.filter(r => matches(r.name, q)).map(r => ({ t: r.name, s: 'Облус / шаар', q: r.name.replace(/ облусу| шаары/, '') }))
+  ].slice(0, 6);
+  box.innerHTML = items.map(i => `<li data-q="${esc(i.q)}"><span>${esc(i.t)}</span><small>${esc(i.s)}</small></li>`).join('');
+  box.hidden = !items.length;
+}
+
+function syncOrigin(id, custom) {
+  state.origin = custom || DATA.cities[id];
+  renderPlaces(); renderHotelsFood(); renderMapSide();
+  if (Modal.stack.length) Modal.refresh();
+}
+
+function toggleFav(key, btn) {
+  state.favs.has(key) ? state.favs.delete(key) : state.favs.add(key);
+  saveFavs(); updateFavCount();
+  $$(`.fav[data-key="${key}"]`).forEach(b => { const on = state.favs.has(key); b.classList.toggle('is-on', on); b.textContent = on ? '♥' : '♡'; b.setAttribute('aria-pressed', on); });
+  toast(state.favs.has(key) ? 'Тандалмаларга кошулду' : 'Тандалмалардан өчүрүлдү');
+}
+
+const ACTIONS = {
+  'open-place': el => { if (Modal.stack.length && Modal.stack[Modal.stack.length - 1].view.name === 'placeView') { /* башка жерге өтүү */ } openPlace(el.dataset.id); },
+  'open-region': el => openRegion(el.dataset.id),
+  'open-tour': el => openTour(el.dataset.id),
+  'fav': (el, e) => { e.stopPropagation(); toggleFav(el.dataset.key, el); },
+  'tab': el => { state.tab = el.dataset.tab; Modal.refresh(); },
+  'region-type': el => { regionUI.type = el.dataset.type; Modal.refresh(); },
+  'close-modal': () => Modal.close(),
+  'modal-back': () => Modal.back(),
+  'room': el => openRoom(el.dataset.id),
+  'book-room': el => Modal.close() || toast(`${el.dataset.name}: бөлмө брондолду (demo)`),
+  'order-taxi': el => openOrder({ title: 'Такси заказ кылуу', sub: el.dataset.name, done: f => `${f.name}, такси заказыңыз кабыл алынды. Айдоочу ${f.phone} номерине чалат (demo).` }),
+  'order-tour': el => { const t = tourById(el.dataset.id); openOrder({ title: 'Турга заказ берүү', sub: t.name, price: t.price, done: f => `${f.name}, «${t.name}» турга ${f.people} адамга заказыңыз кабыл алынды. Компания ${f.phone} номерине байланышат (demo).` }); },
+  'open-login': () => openLogin(),
+  'open-favs': () => openFavs(),
+  'toggle-search': () => { const h = $('#hsearch'); h.classList.toggle('is-open'); if (h.classList.contains('is-open')) $('#headerSearch').focus(); },
+  'geolocate': () => {
+    if (!navigator.geolocation) return toast('Браузер геолокацияны колдобойт');
+    toast('Жайгашкан жер аныкталууда…');
+    navigator.geolocation.getCurrentPosition(
+      pos => { syncOrigin(null, { id: 'gps', name: 'Сиздин жайгашкан жер', lat: pos.coords.latitude, lng: pos.coords.longitude }); $('#fOrigin').value = ''; toast('Жайгашкан жер жаңыланды'); },
+      () => toast('Уруксат берилген жок. Тизмеден шаарды тандаңыз.'), { timeout: 8000 });
+  },
+  'show-on-map': el => { Modal.close(); selectOnMap(el.dataset.id); scrollToId('map'); },
+  'map-select': el => selectOnMap(el.dataset.id),
+  'goto-spot': el => { const s = DB.spots.find(x => x.id === el.dataset.id); window.open(gmaps(s), '_blank', 'noopener'); },
+  'plan-here': el => {
+    const p = placeById(el.dataset.id), reg = DB.regions.find(r => r.places.includes(p.id) && !r.id.includes('-city') && r.id !== 'bishkek') || regionById(p.region);
+    Modal.close(); $('#pTo').value = reg.id; scrollToId('planner'); toast(`Маршрут: ${reg.name}. «План түзүү» баскычын басыңыз`);
+  }
+};
+
+function init() {
+  // Hero фон
+  $('#heroArt').style.backgroundImage = `url("${Art.hero()}")`;
+
+  // Select'тердин мазмуну
+  const regionOpts = [['', 'Баары']].concat(DB.regions.map(r => [r.id, r.name]));
+  fillSelect($('#regionSelect'), [['', 'Облус тандоо']].concat(DB.regions.map(r => [r.id, r.name])));
+  fillSelect($('#fRegion'), regionOpts);
+  fillSelect($('#hotelRegion'), regionOpts); fillSelect($('#foodRegion'), regionOpts);
+  fillSelect($('#fOrigin'), Object.values(DATA.cities).map(c => [c.id, c.name]), 'bishkek');
+  fillSelect($('#pFrom'), Object.values(DATA.cities).map(c => [c.id, c.name]), 'bishkek');
+  fillSelect($('#pTo'), DB.regions.map(r => [r.id, r.name]), 'osh');
+  fillSelect($('#pDays'), [1, 2, 3, 4, 5, 6, 7].map(n => [n, `${n} күн`]), 3);
+
+  // Чиптер
+  $('#heroChips').innerHTML = ['Сулайман-Тоо', 'Ысык-Көл', 'Ала-Арча', 'Сон-Көл', 'Арсланбап'].map(n => `<button type="button" data-q="${n}">${n}</button>`).join('');
+  const drawChips = () => { $('#typeChips').innerHTML = TYPES.map(t => `<button type="button" class="${state.filters.type === t.id ? 'is-active' : ''}" data-type="${t.id}">${t.label}</button>`).join(''); };
+  drawChips();
+
+  renderPlaces(); renderRegions(); renderHotelsFood(); renderReviews(); updateFavCount();
+  MapProvider.mount($('#mapContainer'), DB.places, selectOnMap); renderMapSide();
+
+  /* --- Фильтрлер --- */
+  const F = state.filters;
+  $('#fQuery').addEventListener('input', e => runSearch(e.target.value, { scroll: false }));
+  $('#fOrigin').addEventListener('change', e => syncOrigin(e.target.value));
+  $('#fRegion').addEventListener('change', e => { F.region = e.target.value; $('#regionSelect').value = F.region; renderPlaces(); });
+  $('#fRating').addEventListener('change', e => { F.rating = Number(e.target.value); renderPlaces(); });
+  $('#fPrice').addEventListener('change', e => { F.price = e.target.value; renderPlaces(); });
+  $('#fDist').addEventListener('change', e => { F.dist = e.target.value; renderPlaces(); });
+  $('#fSort').addEventListener('change', e => { F.sort = e.target.value; renderPlaces(); });
+  $('#typeChips').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; F.type = b.dataset.type; drawChips(); renderPlaces(); });
+  $('#resetFilters').addEventListener('click', () => {
+    Object.assign(F, { q: '', region: '', rating: 0, price: '', dist: '', type: '', sort: 'rating' });
+    ['#fQuery', '#heroInput', '#headerSearch'].forEach(s => $(s).value = '');
+    $('#fRegion').value = ''; $('#regionSelect').value = ''; $('#fRating').value = '0'; $('#fPrice').value = ''; $('#fDist').value = ''; $('#fSort').value = 'rating';
+    drawChips(); renderPlaces();
+  });
+  $('#tDur').addEventListener('change', e => { state.tourFilters.dur = e.target.value; renderTours(); });
+  $('#tPrice').addEventListener('change', e => { state.tourFilters.price = e.target.value; renderTours(); });
+  $('#resetTours').addEventListener('click', () => { state.tourFilters = { dur: '', price: '' }; $('#tDur').value = ''; $('#tPrice').value = ''; renderTours(); });
+  $('#hotelRegion').addEventListener('change', e => { state.hotelRegion = e.target.value; renderHotelsFood(); });
+  $('#foodRegion').addEventListener('change', e => { state.foodRegion = e.target.value; renderHotelsFood(); });
+
+  /* --- Hero издөө + autocomplete --- */
+  $('#heroForm').addEventListener('submit', e => { e.preventDefault(); runSearch($('#heroInput').value); });
+  $('#heroInput').addEventListener('input', e => renderSuggest(e.target.value));
+  $('#suggest').addEventListener('click', e => { const li = e.target.closest('li'); if (li) runSearch(li.dataset.q); });
+  $('#heroChips').addEventListener('click', e => { const b = e.target.closest('button'); if (b) runSearch(b.dataset.q); });
+  document.addEventListener('click', e => { if (!e.target.closest('.hero__search')) $('#suggest').hidden = true; });
+  $('#headerSearch').addEventListener('keydown', e => { if (e.key === 'Enter') { runSearch(e.target.value); $('#hsearch').classList.remove('is-open'); } });
+  $('#regionSelect').addEventListener('change', e => { F.region = e.target.value; $('#fRegion').value = F.region; renderPlaces(); scrollToId('places'); });
+
+  /* --- Planner --- */
+  $('#plannerForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const budget = Math.max(1000, Number($('#pBudget').value) || 10000);
+    renderPlan(buildPlan({ from: $('#pFrom').value, to: $('#pTo').value, days: Number($('#pDays').value), budget }));
+  });
+
+  /* --- Байланыш формасы --- */
+  $('#contactForm').addEventListener('submit', e => { e.preventDefault(); e.target.reset(); toast('Билдирүүңүз жөнөтүлдү (demo). Рахмат!'); });
+
+  /* --- Глобалдык click делегациясы --- */
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-action]');
+    if (!el) return;
+    const fn = ACTIONS[el.dataset.action];
+    if (fn) { if (el.tagName === 'A') return; fn(el, e); }
+  });
+
+  /* --- Til --- */
+  $('.lang').addEventListener('click', e => { const b = e.target.closest('button[data-lang]'); if (b) applyLang(b.dataset.lang); });
+
+  /* --- Header: scroll, burger, active link --- */
+  const header = $('#header'), nav = $('#nav'), burger = $('#burger');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  burger.addEventListener('click', () => { const o = nav.classList.toggle('is-open'); burger.setAttribute('aria-expanded', o); });
+  nav.addEventListener('click', e => { if (e.target.closest('a')) { nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', false); } });
+  const links = $$('.nav a');
+  const io = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  ['home', 'places', 'regions', 'tours', 'hotels', 'food', 'contact'].forEach(id => io.observe(document.getElementById(id)));
+
+  /* --- Esc --- */
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#modal').hidden) Modal.close(); });
+  $('#modal').addEventListener('click', e => { if (e.target.dataset.action === 'close-modal') Modal.close(); });
+}
+
+API.loadAll().then(data => { DB = data; init(); });
+
+</script>
+</body>
+</html>
